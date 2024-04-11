@@ -1,0 +1,6 @@
+Curso PHP
+
+- php artisan serve
+- php artisan list
+- npm run dev 
+- php artisan downs
