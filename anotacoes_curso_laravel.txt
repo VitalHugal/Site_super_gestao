@@ -4,3 +4,383 @@ Curso PHP
 - php artisan list
 - npm run dev 
 - php artisan downs
+___________________________________________________________________
+Rotas - Goroutes laravel
+
+- São caminhos que determinamos dentro do nosso sistema
+- A organização das rotas do laravel 
+ --- API
+ --- Chanenels
+ --- Console
+ --- Web
+
+___________________________________________________________________
+Super getão - implementando as rotas princiapl, sobre-nos e contato
+
+- implemente dentro de routes/web.app as novas rotas.
+
+Route::get('/sobre-nos', function () {
+    return 'Sobre-nós';
+});
+Route::get('/contato', function () {
+    return 'Contato';
+});
+
+- Para acessalas é simples ative seu serve e na url acrescente 
+/contato e depois /sobre-nos;
+___________________________________________________________________
+Controller
+
+- É responsavel por agrupar a logica doque deve ser feito a cada 
+ação;
+- Essa sepração é ideal para uma melhor arquitetura e do seu codigo
+e para deixar as rotas apenas com os metodos http;
+
+___________________________________________________________________
+Implementando os controladores
+
+- Sendo o PrincipalController() ,SobreNosController() e ContatoController();
+- php artisan make:Controller PrincipalController
+- Em App/controllers/ abra seu arquivo craido
+- Adicione um metodo qualquer no meu caso adicionei este
+
+public function principal(){
+        echo"Olá, seja bem vindo ao curso";
+    }
+- Modificando as rotas para o laravel 11 ficou assim agora puxando
+os metodos.
+
+Route::get('/',[PrincipalController::class,'principal']);
+Route::get('/contato',[ContatoController::class,'contato']);
+Route::get('/sobre-nos',[SobreNosController::class,'sobreNos']);
+
+___________________________________________________________________
+Visualizações (views)- Introdução.
+
+- Temos o metodo tradicional que é o html e temos o metodo moderno 
+com API;
+- e por enquando vamos ver o medoto com views no caso o metodo 
+convencional;
+___________________________________________________________________
+Super Gestão - implementando as visualizações principal, sobre-nos 
+e contato
+
+- As views são onde armazenamos todo o HTML do nosso código;
+- Crie dentro de resources/views/ um diretory site e outro app;
+- Em site crie uma arquivo principal.blade.php ,um para sobre-nos e
+outro para contato;
+- Dentro da view coloque um titulo com <h3>Principal (view)</h3>;
+- Volte ao controller do sobre-nós e coloque no metodo;
+
+
+ public function principal(){
+       return view('site.principal');
+    }
+
+
+- Execute com php artisan serve;
+- Perceba que apenas alterou a forma de passar a resposta para a view;
+- Então até agora estamos funcionando assim -- Router -- vai ate o 
+Controller e vê em qual método ele vai participar e retorna pra view
+uma resposta;
+___________________________________________________________________
+Enviando parâmetros
+
+- Os parâmentros são fundamentais dentro da lógica de negócio;
+- em web.php crie uma nova rota.
+- para conseguirmos passar parâmetro dentro das rotas basta adicionar
+chaves e claro o parâmetro;
+
+
+Route::get('/contato/{nome}', function(){
+    echo"estamos aqui";
+});
+
+- Para agora passar uma resposa a function ou seja para o  callback
+temos que passar informações para ele também, informação essa;
+Route::get('/contato/{nome}', function(String $nome){
+    echo"estamos aqui".$nome;
+});
+
+
+- Coloque para rodar no servidor php artisan serve;
+- Quando na Url você adcionar a rota contato perecba que vai chamar
+o contato padrão agora quando adicionado /contato/qualquerNome a 
+framework entende que estamos chamando a rota contato com parametros 
+e entrega na view uma outra resposta;
+- Com isso podemos aumentar cada vez mais os parametros de uma rota;
+
+
+ Route::get('/contato/{nome}/{z}/{a}', function(String $nome, String $z, String $a){
+    echo"Estamos aqui: ". $nome, $z, $a;
+});
+
+___________________________________________________________________
+Parâmetros opcionais e valores padrões
+
+- No modo anterior todos os parâmetros informados na url eram 
+obrigatórios agora vamos ver como resolver isso e deixar de forma 
+opcional;
+- Temos que adicionar um ponto de interrogação ao final do parametro
+dentro da chave e colocar para ser recebido um valor caso não seja
+exigido o parâmetro;
+
+Route::get('/contato/{nome}/{z}/{a?}', function(String $nome, 
+String $z, String $a = "mensagem nao enviada"){
+    echo"Estamos aqui: ". $nome, $z, $a;
+});
+
+- Perceba que dentro do paramentro 'a' ele tem um ponto de 
+interrogação e caso não seja passado nada ele retorna "mensagem 
+nao enviada";
+- Temos que tomar muito cuidado também com isso pois o laravel se
+encontra limitado em deixar parâmetros opcionais pois, ele pode não
+entender oque te responder e aparecer 404 - NotFound;
+- O ideal é sempre deixar os parametros opcinais da direita para 
+esquerda de modo em que ele não perca essa ordem;
+___________________________________________________________________
+Tratando parâmetros de rotas com expressões regulares
+
+- Tratamento de parâmentos com expressões regulares, nada mais é que
+vc passar uma regra de parâmetro para ser possivel acessar tal url;
+- aqui apenas alterei o nome da veriavel para categoria_id para
+melhor intendimento mesmo;
+
+Route::get(
+    '/contato/{nome}/{categoria_id}',
+    function (
+        String $nome = "desconhecido",
+        int $categoria_id = 1
+    ) {
+        echo "Estamos aqui: " . $nome, $categoria_id;
+    }
+);
+
+- Perceba que aqui para realizarmos essa regra atribuimos um valor 
+para a variavel categoria_id de igual a 1;
+- Desse modo quando testamos na nossa url o primeiro parametro que
+para a desnvolvimento foi definido como nome, pode ser qualquer nome,
+agora o categoria_id não;
+- Realize o teste na sua url e troque o valor de 1 para outro 
+qualquer e veja que é gerado um erro apenas quando colocamos um 
+valor não número estilo string;
+- Agora podemos também realizar uma validação um pouco mais 
+inteligente no modo em que passamos uma regra para o parametro ou 
+seja;
+
+Route::get(
+    '/contato/{nome}/{categoria_id}',
+    function (
+        String $nome = "desconhecido",
+        int $categoria_id = 25
+    ) {
+        echo "Estamos aqui: " . $nome, $categoria_id;
+    }
+)->where('categoria_id', '[0-9]+');
+
+- Aqui em Where estou informando que o parametro categoria_id vai 
+funcionar de modo que ele só aceita número que sejam inteiros entre
+zero e nove e tenha nó minimo um número sendo simbolizado isso 
+pelo +;
+
+Route::get(
+    '/contato/{nome}/{categoria_id}',
+    function (
+        String $nome = "desconhecido",
+        int $categoria_id = 25
+    ) {
+        echo "Estamos aqui: " . $nome, $categoria_id;
+    }
+)->where('categoria_id', '[0-9]+')->where('nome','[A-Za-z]+');
+
+
+- Adicionando esse código ao final do parenteses estou determinado 
+agora que os dois parametros tem regras, sendo assim o primeiro 
+paramentro é sendo obrigado a ter qual letra de a ou z maiuscula
+ou minuscula e sendo obrigao ter no minimo uma;
+
+___________________________________________________________________
+Super gestão - criando o menu de navegação
+
+- Criamos na pagina principal.blade.php uma lista;
+
+ <h3>Principal (view)</h3>
+    <ul>
+        <li><a href="/">Principal</a></li>
+        <li><a href="/sobre-nos">Sobre Nós</a></li>
+        <li><a href="/contato">Contato</a></li>
+    </ul>
+
+- Caso queira trabalhar com dois terminal no vscode é possivel;
+- No terminal coloque php artisan route:list e será mostrado para 
+você a lista de todas as rotas que vc criou;
+___________________________________________________________________
+Super Gestão - Implementando as rotas login, clientes, fornecedores
+ e produtos
+
+- crie 4 novas rotas para login, clientes, fornecedores, produtos;
+
+___________________________________________________________________
+Agrupando rotas
+
+- O agrupamento de rotas serve para diversos motivos mas no nosso 
+caso vamos cria-lo para conseguir separar a parte em todos acessam
+para uma parte restrita.
+- para isso criamos uma rota com prefix chamdo app onde agora na 
+nossa url não vai ser mais digitado
+
+http://127.0.0.1:8000/clientes
+
+- e sim; 
+
+http://127.0.0.1:8000/app/clientes
+
+- assim ficou a estruturação da nossa rota de prefixo;
+
+Route::prefix('/app')->group(function () {
+    Route::get('/clientes', [ClientesController::class, 'clientes']);
+    Route::get('/fornecedores', [FornecedoresController::class, 'fornecedores']);
+    Route::get('/produtos', [ProdutosController::class, 'produtos']);
+});
+
+- Usando o comando php artisan route:list podemos ver também a 
+mudança nas rotas que agora se encontram com /app;
+
+___________________________________________________________________
+Nomeando rotas
+
+- É possível a gente nomear nossas rotas com o intuito de deixar 
+cada vez mais otimizado nossa código, porém não podemos utilizar 
+esse apelido na nossa url apenas na nossa aplicação;
+
+Route::get('/', [PrincipalController::class, 'principal'])->name('site.index');
+Route::get('/contato', [ContatoController::class, 'contato'])->name('site.contato');
+Route::get('/sobre-nos', [SobreNosController::class, 'sobreNos'])->name('site.sobrenos');
+Route::get('/login', [LoginController::class, 'login'])->name('site.login');
+
+//app
+Route::prefix('/app')->group(function () {
+    Route::get('/clientes', [ClientesController::class, 'clientes'])->name('app.clientes');
+    Route::get('/fornecedores', [FornecedoresController::class, 'fornecedores'])->name('app.fornecedores');
+    Route::get('/produtos', [ProdutosController::class, 'produtos'])->name('app.produtos');
+});
+
+- Como realizamos essa nomeação temos que ir nas nossas view e 
+também trocar;
+
+<h3>Principal (view)</h3>
+    <ul>
+        <li><a href="{{route('site.index')}}">Principal</a></li>
+        <li><a href="{{route('site.sobrenos')}}">Sobre Nós</a></li>
+        <li><a href="{{route('site.contato')}}">Contato</a></li>
+    </ul>
+
+- Ficando assim as três views (principal, contato e sobre nós).
+- Essa nomeação ajuda a não dependermos diretamente da nossa rota
+uma vez que ela tem uma maior probabilidade de ser alterada;
+
+___________________________________________________________________
+Redirecionamento de rotas
+
+- O redirecionamento ele é uma ferramenta muito boa pois dá a você
+ainda mais controle de rotas que o  seu cliente vai acessar;
+- Aqui criamos uma nova rota onde ela mostra apenas uma echo e logo
+em baixo criamos outra rota com a o metodo redirect onde caso vc 
+acesse a primeira rota, o metodo redirect rapidamente te enviara 
+para a segunda rota mencionada; 
+
+
+Route::get('/rota1', function(){
+    echo"rota 1";
+})->name('site.rota1');
+
+Route::redirect('/babiono-doido', '/rota1');
+
+
+- Realize o teste olhando sua url;
+- Também podemos realizar essa função de redirecionamento do 
+seguinte modo;
+
+
+Route::get('/rota1', function(){
+    echo"rota 1";
+})->name('site.rota1');
+
+Route::get('/rota2', function(){
+    return redirect()->route('site.rota1');
+})->name('site.rota2');
+
+- Perceba que foi passado um return redirect chamando a o route pelo
+nome dado a rota 2;
+
+___________________________________________________________________
+Rota de contingência (fallback)
+
+- Um rota de contingência nada mais é que uma rota que será exibida 
+para o cliente caso ele procure por alguma que o nosso sitema não 
+esteja encontrando;
+
+
+Route::fallback(function(){
+    echo'A rota acessada não existe <a href="'.route('site.index').'">clique aqui</a> para voltar a página principal.';
+});
+
+___________________________________________________________________
+Encaminhando parâmetros da rota para o controlador
+
+- Criei uma nova rota e um novo controller, a principio colocamos
+o nome de teste nessa rota acrescente dois parametros, aqui chamamos
+de p1 e p2;
+
+Route::get('/teste/{p1}/{p2}', [TesteController::class, 'teste'])->name('teste');
+
+- Já no seu controller vamos colocar os parametros a serem 
+recebidos;
+
+
+public function teste(int $p1, int $p2){
+        echo"A soma de $p1 + $p2 é igual:". ($p1+$p2);
+    }
+
+- Perceba que até aqui utilizamos muitos conhecimento adiquirido 
+no curso como criar rotas, controller, parametros, nomear a rota 
+etc;
+- No controller adicionamos como parametro do metodo o p1 e p2 e 
+também passamos um echo para realizar uma breve soma dos parametros
+recebidos atraves da url;
+___________________________________________________________________
+Encaminhando parâmetros do controlador para visualização
+
+- Como já apredemos como pegar um parametro da routa e passar para o
+controller, agora vamos aprender a pegar do controller e jogar na 
+view;
+- Criaremos uma view em site com nome de teste;
+- Dentro do controller criaremos um return view direcionando 
+('site.teste');
+- Lembre-se que quando for testar no servidor local passe dois 
+parametros;
+- Desse primeiro modo é com array associativo;
+
+
+ public function teste(int $p1, int $p2){
+       return view('site.teste', ['p1' =>$p1, 'p2'=>$p2]);
+    }
+
+- Desse segundo modo com compact percebe que não utilizamos 
+a variavel e sim a string; 
+
+  
+ public function teste(int $p1, int $p2){
+       return view('site.teste', compact('p1', 'p2'));
+    }
+
+- Porém em ambas as formas eu utilizo a variavel na view
+
+<h1>
+    <p>teste</p>
+</h1>
+
+<h1> P1 ={{$p1}}</h1>
+<h1> P2 ={{$p2}}</h1>
+
+- Desse terceiro modo com  
