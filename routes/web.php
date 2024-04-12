@@ -20,7 +20,7 @@ Route::get('/login', [LoginController::class, 'login'])->name('site.login');
 //app
 Route::prefix('/app')->group(function () {
     Route::get('/clientes', [ClientesController::class, 'clientes'])->name('app.clientes');
-    Route::get('/fornecedores', [FornecedoresController::class, 'fornecedores'])->name('app.fornecedores');
+    Route::get('/fornecedores', [FornecedoresController::class, 'index'])->name('app.fornecedores');
     Route::get('/produtos', [ProdutosController::class, 'produtos'])->name('app.produtos');
 });
 

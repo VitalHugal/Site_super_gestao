@@ -383,4 +383,22 @@ a variavel e sim a string;
 <h1> P1 ={{$p1}}</h1>
 <h1> P2 ={{$p2}}</h1>
 
-- Desse terceiro modo com  
+- Desse terceiro modo com with vc vai adicionando with até atingir
+todos os parametros;
+
+public function teste(int $p1, int $p2)
+    {
+return view ('site.teste')->with('p1', $p1)->with('p2', $p2);
+ }
+_________________________________________________________
+Sintaxe blade
+
+- O blade é um motor de renderização de views responsavel
+por interpretar o html e mostrar para cliente, além disso
+ele possui um forte esquemas de templates;
+- Ele consegue trabalhar com sintaxe pura do blade e do
+php nas views;
+_________________________________________________________
+Blade - Incluíndo comentários e blocos PHP puros
+
+- 
