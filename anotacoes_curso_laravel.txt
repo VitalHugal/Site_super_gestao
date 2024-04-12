@@ -798,3 +798,75 @@ O que são assets ?
 - É tudo que é utilizado como complemento das views Html e Css
 como imagens, vídeos audios ou até mesmo os scripts do 
 java-scrpits;
+- A tag asset sempre aponta para a o diretorio assets então vc 
+não precisa passalá ao colocar o assets só se houver mais pastas;
+________________________________________________________________
+Adicionando arquivos CSS externos as páginas web
+
+- Criei uma pasta css em public adicione seu estilo e chame ela 
+com link e assets;
+________________________________________________________________ 
+ Blade - Template com @extends, @section e @yield parte 1
+
+- Para criar um template criei um pasta dentro de site com o nome
+de layout e adicionei um arquivo chamado basico.blade.php;
+- Dentro dessa página joguei o código de interface padrão de 
+todas as views;
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <title>Super Gestão - Sobre Nós</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href={{asset('css/estilo_basico.css')}}>
+    </head>
+    <body>
+    </body>
+</html>
+
+- E utilizo o extends para importar o template para view e o 
+section para importar do template o oque quero mostrar na view;
+- Usamos @extends('site.layouts.basico') e @section('conteudo')
+na view e @yield('conteudo') no conteudo;
+________________________________________________________________
+Blade - Template com @extends, @section e @yield parte 2
+
+- O sections também consegue receber parametros atraves das urls;
+- No nosso template, adicionamos uma yield com parametro titulo
+onde nas viwes adicionamos uma section chamando titulo e com seu
+respectivo nome;
+
+template
+<title>Super Gestão - @yield('titulo')</title>
+
+view
+@section('titulo', 'Home')
+
+________________________________________________________________
+Blade - Realizando include de views (@include)
+
+- Inclusão de todo conteudo não parcial como o extends;
+- Vá té seu diretorio de layouts e crie um novo chamado 
+_partials, adicione um arquivo topo.blade.php;
+- Em seguida pegue dentro do arquivo contato, a div completa 
+chamado de topo e recorte e cole ela em topo;
+- em seguida adicione no arquivo basico.blade a seguinte linha;
+@include('site.layouts._partials.topo') pois ele vai utilizar o
+topo desse direcionamento informado como parametro e funcionar
+dentro da section;
+________________________________________________________________
+Super Gestão - Enviando o formulário de contato
+
+- Action para onde o formulario sera enviado;
+- Metodo qual o verbo http get ou post sera utilizado;
+- No form da página contato.blade colocamos a rota que queremos
+enviar o formulario e utilizamos o metodo get;
+________________________________________________________________
+Enviando o formulário de contato via POST
+
+- Para utilizarmos o metodo post basta trocarmos o metodo lá nas 
+rotas e na view, porém não é tão simples assim temos que usar a
+tag @csrf para conseguir utilizar o metodo post essa tag é como
+se fosse um token mas nas proximas aulas veremos mais sobre ele
+________________________________________________________________
