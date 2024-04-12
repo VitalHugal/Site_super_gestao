@@ -35,8 +35,7 @@ Controller
 ação;
 - Essa sepração é ideal para uma melhor arquitetura e do seu codigo
 e para deixar as rotas apenas com os metodos http;
-
-___________________________________________________________________
+_________________________________________________________________
 Implementando os controladores
 
 - Sendo o PrincipalController() ,SobreNosController() e ContatoController();
@@ -870,3 +869,14 @@ rotas e na view, porém não é tão simples assim temos que usar a
 tag @csrf para conseguir utilizar o metodo post essa tag é como
 se fosse um token mas nas proximas aulas veremos mais sobre ele
 ________________________________________________________________
+Entendendo o token @csrf
+
+- O @csrf é como uma marca que você coloca em todos os blocos 
+que você adiciona à sua casa. Essa marca é como uma senha secreta
+ que só você conhece. Quando você quiser adicionar ou remover 
+blocos da sua casa, você precisa mostrar essa marca para provar 
+que é você quem está fazendo isso;
+- Portanto, o @csrf é uma medida de segurança importante que 
+ajuda a proteger os sites contra atividades maliciosas, 
+garantindo que apenas as pessoas autorizadas possam enviar 
+dados para o site;
