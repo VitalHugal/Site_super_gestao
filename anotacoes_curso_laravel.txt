@@ -401,4 +401,28 @@ php nas views;
 _________________________________________________________
 Blade - Incluíndo comentários e blocos PHP puros
 
-- 
+- Agora criaremos a FornecedorController e mudaremos como
+ele é chamado lá em route/web.php;
+- Criaremos um metodo index onde ele tem um return view para resources/view/app/fornecedor.blade.php crie essa estrutura caso seja necessario(app/fornecedor.blade.php);
+
+
+   public function index(){
+        return view('app.fornecedor.index');
+    }
+
+    Route::get('/fornecedores', [FornecedoresController::class, 'index'])->name('app.fornecedores');
+
+
+<h3>fornecedor</h3>
+
+- Para adicionar o cometario no blade {{--uwusnp--}};
+- Tenha o habito de sempre comentar seu código;
+_________________________________________________________
+Extra - Adicionando a extensão VSCode Laravel-Blade
+
+- Adicione a extensão laravel-blade;
+_________________________________________________________
+Blade @if / @else
+
+-
+
