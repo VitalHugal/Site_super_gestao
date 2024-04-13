@@ -35,8 +35,7 @@ Controller
 ação;
 - Essa sepração é ideal para uma melhor arquitetura e do seu codigo
 e para deixar as rotas apenas com os metodos http;
-
-___________________________________________________________________
+_________________________________________________________________
 Implementando os controladores
 
 - Sendo o PrincipalController() ,SobreNosController() e ContatoController();
@@ -401,6 +400,7 @@ php nas views;
 _________________________________________________________
 Blade - Incluíndo comentários e blocos PHP puros
 
+<<<<<<< HEAD
 - Agora criaremos a FornecedorController e mudaremos como
 ele é chamado lá em route/web.php;
 - Criaremos um metodo index onde ele tem um return view para resources/view/app/fornecedor.blade.php crie essa estrutura caso seja necessario(app/fornecedor.blade.php);
@@ -426,3 +426,485 @@ Blade @if / @else
 
 -
 
+=======
+- Para incluir comentario com blade {{--fuohejrfheruopeiur--}};
+- Para abrir o php puro no blade utilizamos {{}} ou <?= ?>;
+_________________________________________________________
+Blade @if @else 
+
+@dd($fornecedores)
+
+@if (count($fornecedores) > 0 && count($fornecedores) < 10)
+    <h3>Existem alguns fornecedores cadastrados</h3>
+@elseif (count($fornecedores) >= 10)
+    <h3>Existem muitos fornecedores cadastrados</h3>
+@else
+    <h3>Não existem fornecedores cadastrados</h3>
+@endif
+
+__________________________________________________________
+Blade @unless
+
+- O perador unless é o inverso if ele analisa algo negativo;
+
+public function index(){
+        $fornecedores = [
+            0 => ['nome' => 'Fornecedor 1', 'status' => 'N']
+        ];
+
+        return view('app.fornecedor.index', compact('fornecedores'));
+    }
+
+- Perceba que dentro do metodo o array da favriavel esta tem duas
+chaves sendo uma nome = fornecedor 1 e status = a n;
+- Logo quando posto na view.
+
+Fornecedor:{{$fornecedores[0]['nome']}};
+<br>
+Status:{{$fornecedores[0]['status']}};
+
+- E simulado no servidor local aparece a info solicitada de 
+fornecedor e status.
+- Ao inves de utilizar isso tudo;
+
+
+@if (!($fornecedores [0]['status'] == 'S'))
+    Fornecedor inativo
+@endif
+
+- Podemos utilizar apenas @unless que ele realiza essa validação
+inversa de if para você;
+
+
+@unless (($fornecedores [0]['status'] == 'S'))
+    Fornecedor inativo
+@endunless
+________________________________________________________________
+Blade @isset
+
+- O isset funciona para identificar se realmente um array exite;
+- Caso você passe um metodo e não tenha colocado para retornar da
+view vc pode utilizar o @isset desse modo no metodo; 
+
+
+public function index(){
+        $fornecedores = [
+            0 => ['nome' => 'Fornecedor 1', 'status' => 'N']
+        ];
+
+        return view('app.fornecedor.index');
+    }
+
+- E assim na index;
+
+ 
+@isset($fornecedores)
+    Fornecedor:{{$fornecedores[0]['nome']}};
+    <br>
+    Status:{{$fornecedores[0]['status']}};
+@endisset
+
+- Quando for testado no servidor local repare que, não retornará 
+nada pois essa info não foi selecionada para a view;
+- Agora utilizando a vaiavel;
+
+
+return view('app.fornecedor.index', compact('fornecedores'));
+
+- No servidor retornara as infors solicitadas;
+- Também podemos utilizar um isset dentro de outro isset;
+
+
+@isset($fornecedores)
+    Fornecedor:{{$fornecedores[0]['nome']}};
+    <br>
+    Status:{{$fornecedores[0]['status']}};
+    <br>
+    @isset($fornecedores[0]['cnpj'])
+        CNPJ:{{$fornecedores[0]['cnpj']}};
+    @endisset
+@endisset
+________________________________________________________________
+Blade @empty
+
+- Serve para saber se uma variavel esta ou não vazio;
+- Retorna true para vazio;
+- "", 0,0.0, '0', null, false, arra(), $var;
+- Mude a atribuição do cnpj para qualquer uma das alternativas a 
+cima e na index também ficando assim;
+
+
+ $fornecedores = [
+            0 => ['nome' => 'Fornecedor 1', 'status' => 'N', 'cnpj' => '0'],
+            1 => ['nome' => 'Fornecedor 2', 'status' => 'S']
+        ];
+
+- Assim na index;
+
+
+@isset($fornecedores)
+    Fornecedor:{{$fornecedores[0]['nome']}};
+    <br>
+    Status:{{$fornecedores[0]['status']}};
+    <br>
+    @isset($fornecedores[0]['cnpj'])
+        CNPJ:{{$fornecedores[0]['cnpj']}}
+        @empty($fornecedores[0]['cnpj'])
+            - Vazio
+        @endempty
+    @endisset
+@endisset
+
+________________________________________________________________
+Extra - Operador condicional tenarnario do php
+
+- Condicao ? se verdade : se falso:
+
+ public function index(){
+        $fornecedores = [
+            0 => ['nome' => 'Fornecedor 1', 'status' => 'N', 'cnpj' => '005'],
+            1 => ['nome' => 'Fornecedor 2', 'status' => 'S']
+        ];
+
+        //condicao ? se verdade : se falso:
+       echo isset($fornecedores[0]['cnpj']) ? 'CNPJ informado' : 'CNPJ não informado';
+
+        return view('app.fornecedor.index', compact('fornecedores'));
+    }
+
+- Note que se mudarmos dentro do echo no indice 0 para 1 teremos
+a troca de cnpj informado ou não;
+________________________________________________________________
+Blade - Operador condicional de valor default (??)
+
+- basicamente ele funciona para validar um variavel dessa forma;
+
+
+public function index(){
+        $fornecedores = [
+            0 => ['nome' => 'Fornecedor 1', 'status' => 'N', 'cnpj' => '0'],
+            1 => ['nome' => 'Fornecedor 2', 'status' => 'S']
+        ];
+
+        return view('app.fornecedor.index', compact('fornecedores'));
+    }
+
+- Se mudarmos no cnpj o valor que representa ele e deixar 'null'
+com a view nessa condição vai retornar dado não foi preenchido;
+
+
+ CNPJ:{{$fornecedores[1]['cnpj'] ?? 'Dano não foi preenchido'}};
+
+- Pois ela entende que essa variavel não recebeu nenhum valor, 
+ela também entende caso não seja definida o (isset);
+________________________________________________________________
+Balde - switch - case
+
+- O switch nada mais é que uma porção de opções de que vc pode 
+gerar, se ele for escolhido ele para ali, senão cai no default
+ou segue normalmente;
+
+
+public function index(){
+        $fornecedores = [
+            0 => ['nome' => 'Fornecedor 1', 'status' => 'N', 'cnpj' => '0', 'ddd'=>'11','telefone'=>'0000-0000'],
+            1 => ['nome' => 'Fornecedor 2', 'status' => 'S', 'ddd'=>'85','telefone'=>'0000-0000'],
+            2 => ['nome' => 'Fornecedor 2', 'status' => 'S', 'ddd'=>'32','telefone'=>'0000-0000']
+        ];
+
+        return view('app.fornecedor.index', compact('fornecedores'));
+    }
+
+- E no index fica;
+
+@isset($fornecedores)
+    Fornecedor:{{$fornecedores[2]['nome']}};
+    <br>
+    Status:{{$fornecedores[2]['status']}};
+    <br>
+    CNPJ:{{$fornecedores[2]['cnpj'] ?? 'Dado não foi preenchido'}};
+    <br>
+    Telefone:({{$fornecedores[2]['ddd'] ?? ''}}) {{
+        $fornecedores[2]['telefone'] ?? '' }};
+
+    @switch($fornecedores[2]['ddd'])
+        @case('11')
+            São Paulo -SP
+            @break
+        @case('32')
+            Juiz de fora - MG
+            @break
+        @case('85')
+            Fortaleza - CE
+            @break
+        @default
+            Estado não identificado
+    @endswitch
+@endisset
+________________________________________________________________
+Blade - @for
+
+@isset($fornecedores)
+    @for ($i=0; isset($fornecedores[$i]); $i++)
+        Fornecedor:{{$fornecedores[$i]['nome']}};
+        <br>
+        Status:{{$fornecedores[$i]['status']}};
+        <br>
+        CNPJ:{{$fornecedores[$i]['cnpj'] ?? 'Dado não foi preenchido'}};
+        <br>
+        Telefone:({{$fornecedores[$i]['ddd'] ?? ''}}) {{
+            $fornecedores[$i]['telefone'] ?? '' }};
+        <hr>
+        @endfor
+@endisset
+________________________________________________________________
+Blade - @while
+
+- É uma função simples que funciona de modo que em quanto vc não 
+terminal uma tarefa, ou enquanto for verdadeiro, ou enquanto for
+falso isso vai continuar;
+
+
+@isset($fornecedores)
+    @php
+        $i = 0
+    @endphp
+   @while (isset($fornecedores[$i]))
+        Fornecedor:{{$fornecedores[$i]['nome']}};
+        <br>
+        Status:{{$fornecedores[$i]['status']}};
+        <br>
+        CNPJ:{{$fornecedores[$i]['cnpj'] ?? 'Dado não foi preenchido'}};
+        <br>
+        Telefone:({{$fornecedores[$i]['ddd'] ?? ''}}) {{
+            $fornecedores[$i]['telefone'] ?? '' }};
+        @php
+            $i++
+        @endphp
+    @endwhile
+@endisset
+________________________________________________________________
+Blade - @foreach
+
+@isset($fornecedores)
+    @foreach ($fornecedores as $indice => $fornecedor)
+        Fornecedor:{{$fornecedor['nome']}};
+        <br>
+        Status:{{$fornecedor['status']}};
+        <br>
+        CNPJ:{{$fornecedor['cnpj'] ?? 'Dado não foi preenchido'}};
+        <br>
+        Telefone:({{$fornecedor['ddd'] ?? ''}}) {{
+            $fornecedor['telefone'] ?? '' }};
+            <hr>
+    @endforeach
+@endisset
+________________________________________________________________
+Blade - @forelse
+
+- Ele usado para de forma elegante você desviar de um erro caso
+seu array esteja vazio;
+
+@isset($fornecedores)
+    @forelse ($fornecedores as $indice => $fornecedor)
+        Fornecedor:{{$fornecedor['nome']}};
+        <br>
+        Status:{{$fornecedor['status']}};
+        <br>
+        CNPJ:{{$fornecedor['cnpj'] ?? 'Dado não foi preenchido'}};
+        <br>
+        Telefone:({{$fornecedor['ddd'] ?? ''}}) {{
+            $fornecedor['telefone'] ?? '' }};
+            <hr>
+    @empty
+        Não existem fornecedores cadsatrados!!!
+    @endforelse
+@endisset
+
+- No Controller só 'nullamos' a página para demosntração;
+
+public function index(){
+        $fornecedores = [
+            0 => ['nome' => 'Fornecedor 1', 'status' => 'N', 'cnpj' => '0', 'ddd'=>'11','telefone'=>'0000-0000'],
+            1 => ['nome' => 'Fornecedor 2', 'status' => 'S', 'ddd'=>'85','telefone'=>'0000-0000'],
+            2 => ['nome' => 'Fornecedor 2', 'status' => 'S', 'ddd'=>'32','telefone'=>'0000-0000']
+        ];
+
+        $fornecedores =[];
+
+        return view('app.fornecedor.index', compact('fornecedores'));
+    }
+________________________________________________________________
+Blade - Escapando a tag de impressão do Blade
+
+- Tem como vc mostrar as chaves do seu código caso seja 
+necessário ou até mesmo o seu código, você adiociona @ na frente
+da expressão;
+
+
+@isset($fornecedores)
+    @forelse ($fornecedores as $indice => $fornecedor)
+        Fornecedor:@{{$fornecedor['nome']}};
+        <br>
+        Status:@{{$fornecedor['status']}};
+        <br>
+        CNPJ:@{{$fornecedor['cnpj'] ?? 'Dado não foi preenchido'}};
+        <br>
+        Telefone:(@{{$fornecedor['ddd'] ?? ''}}) @{{
+            $fornecedor['telefone'] ?? '' }};
+            <hr>
+    @empty
+        Não existem fornecedores cadsatrados!!!
+    @endforelse
+@endisset
+________________________________________________________________
+Blade - Variável loop 
+
+- Consigo atravez so loop do blade verificar as interações para
+um controle de uma aplicação.
+
+
+@isset($fornecedores)
+    @forelse ($fornecedores as $indice => $fornecedor)
+    Interação atual: {{$loop->iteration}}
+        Fornecedor:{{$fornecedor['nome']}};
+        <br>
+        Status:{{$fornecedor['status']}};
+        <br>
+        CNPJ:{{$fornecedor['cnpj'] ?? 'Dado não foi preenchido'}};
+        <br>
+        Telefone:({{$fornecedor['ddd'] ?? ''}}) {{
+            $fornecedor['telefone'] ?? '' }};
+            <hr>
+    @empty
+        Não existem fornecedores cadsatrados!!!
+    @endforelse
+@endisset
+
+- Também consigo de forma muito simples vizualizar a primeira 
+interação da aplicação;
+
+@isset($fornecedores)
+
+    @forelse ($fornecedores as $indice => $fornecedor)
+        Interação atual: {{$loop->iteration}}
+        <br>
+        Fornecedor:{{$fornecedor['nome']}};
+        <br>
+        Status:{{$fornecedor['status']}};
+        <br>
+        CNPJ:{{$fornecedor['cnpj'] ?? 'Dado não foi preenchido'}};
+        <br>
+        Telefone:({{$fornecedor['ddd'] ?? ''}}) {{
+            $fornecedor['telefone'] ?? '' }};
+        <br>
+        @if ($loop->first)
+        Primeira interação
+        @endif
+        <hr>
+    @empty
+        Não existem fornecedores cadsatrados!!!
+    @endforelse
+@endisset
+
+- Onde quando executado ele mostrará a primeira interação com
+o @if ($loop->first);
+- Já com @if ($loop->last) consigo verificar a ultima;
+- Com o a linha de código loop->count também é possivel ter o
+resultado total de interações;
+
+@if ($loop->last)
+        Ultima interação
+            <br>
+            Total de registros {{$loop->count}}
+        @endif
+________________________________________________________________
+O que são assets ?
+
+- É tudo que é utilizado como complemento das views Html e Css
+como imagens, vídeos audios ou até mesmo os scripts do 
+java-scrpits;
+- A tag asset sempre aponta para a o diretorio assets então vc 
+não precisa passalá ao colocar o assets só se houver mais pastas;
+________________________________________________________________
+Adicionando arquivos CSS externos as páginas web
+
+- Criei uma pasta css em public adicione seu estilo e chame ela 
+com link e assets;
+________________________________________________________________ 
+ Blade - Template com @extends, @section e @yield parte 1
+
+- Para criar um template criei um pasta dentro de site com o nome
+de layout e adicionei um arquivo chamado basico.blade.php;
+- Dentro dessa página joguei o código de interface padrão de 
+todas as views;
+
+
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <title>Super Gestão - Sobre Nós</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href={{asset('css/estilo_basico.css')}}>
+    </head>
+    <body>
+    </body>
+</html>
+
+- E utilizo o extends para importar o template para view e o 
+section para importar do template o oque quero mostrar na view;
+- Usamos @extends('site.layouts.basico') e @section('conteudo')
+na view e @yield('conteudo') no conteudo;
+________________________________________________________________
+Blade - Template com @extends, @section e @yield parte 2
+
+- O sections também consegue receber parametros atraves das urls;
+- No nosso template, adicionamos uma yield com parametro titulo
+onde nas viwes adicionamos uma section chamando titulo e com seu
+respectivo nome;
+
+template
+<title>Super Gestão - @yield('titulo')</title>
+
+view
+@section('titulo', 'Home')
+
+________________________________________________________________
+Blade - Realizando include de views (@include)
+
+- Inclusão de todo conteudo não parcial como o extends;
+- Vá té seu diretorio de layouts e crie um novo chamado 
+_partials, adicione um arquivo topo.blade.php;
+- Em seguida pegue dentro do arquivo contato, a div completa 
+chamado de topo e recorte e cole ela em topo;
+- em seguida adicione no arquivo basico.blade a seguinte linha;
+@include('site.layouts._partials.topo') pois ele vai utilizar o
+topo desse direcionamento informado como parametro e funcionar
+dentro da section;
+________________________________________________________________
+Super Gestão - Enviando o formulário de contato
+
+- Action para onde o formulario sera enviado;
+- Metodo qual o verbo http get ou post sera utilizado;
+- No form da página contato.blade colocamos a rota que queremos
+enviar o formulario e utilizamos o metodo get;
+________________________________________________________________
+Enviando o formulário de contato via POST
+
+- Para utilizarmos o metodo post basta trocarmos o metodo lá nas 
+rotas e na view, porém não é tão simples assim temos que usar a
+tag @csrf para conseguir utilizar o metodo post essa tag é como
+se fosse um token mas nas proximas aulas veremos mais sobre ele
+________________________________________________________________
+Entendendo o token @csrf
+
+- O @csrf é como uma marca que você coloca em todos os blocos 
+que você adiciona à sua casa. Essa marca é como uma senha secreta
+ que só você conhece. Quando você quiser adicionar ou remover 
+blocos da sua casa, você precisa mostrar essa marca para provar 
+que é você quem está fazendo isso;
+- Portanto, o @csrf é uma medida de segurança importante que 
+ajuda a proteger os sites contra atividades maliciosas, 
+garantindo que apenas as pessoas autorizadas possam enviar 
+dados para o site;
+>>>>>>> 385185c54c8b809c330d307d291126649ab4f7b4
