@@ -1146,4 +1146,26 @@ _________________________________________________________________
 Eloquent - Ajustando o nome da tabela no Model para um correto 
 ORM
 
-- 
+- O banco de dados entendo nome do assim 
+
+SiteContato
+Site_Contato -> ele coloca o underline quando identifica o 
+CamelCase;
+site_contato -> deixa todas as letras em minusculo;
+site_contatos -> e acrescenta o s ao final;
+
+- Porém um dos problemas nisso é que em algumas palavras ficaria 
+errado no ponto de vista portugues porque pensa na palavra
+fornecedor ficariam fornecedors e estaria errado, então por isso
+temos um jeito de arrumar isso;
+- vá até a model e acrescente essa linha;
+
+
+protected $table ='fornecedores'; 
+
+- Porque assim vc denterminar a forma certa que irá ser seguido 
+por ele;
+_________________________________________________________________
+Eloquent - Inserindo registros com Create e Fillable
+
+-
