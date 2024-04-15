@@ -1236,3 +1236,24 @@ $contato2 = SiteContato::whereBetween('id',[3,6])->get();
 
 - E o NotBetween não vai buscar nada nesse intervalo;
 _________________________________________________________________
+Eloquent - Introdução as Collections first, last e reverse
+
+- O first tras para vc o primeiro elemento;
+
+$contato->first();
+
+- O last tras para vc o ultimo elemento;
+
+$contato->last();
+ 
+- O reverse ele muda a ordem do seu array do ultimo para o 
+primiero e vice versa;
+
+$contato->reverse();
+_________________________________________________________________
+Eloquent - Collection toArray e toJson
+
+- Com o toArray eu consigo ordenar e muito mais;
+- Com o toArray consguimos realizar diversar coisa porém usamos
+com bastante frequencia na troca do front com back;
+_________________________________________________________________
