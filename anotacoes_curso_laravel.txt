@@ -1276,4 +1276,12 @@ SiteContato::all()->pluck('email');
 _________________________________________________________________
 Eloquent - Atualizando registros (save)
 
-- 
+- Conseguimos atualizar informações no banco de dados de forma 
+muito fácil;
+
+$fornecedor = Fornecedor ::find(1);
+$fornecedor->nome = 'Fornecedor 123';
+$fornecedor->save();
+
+- Prontinho está alterado;
+_________________________________________________________________
