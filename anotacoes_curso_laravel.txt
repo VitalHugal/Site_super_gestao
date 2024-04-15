@@ -2,13 +2,13 @@ Curso PHP
 
 - php artisan serve
 - php artisan list
-- npm run dev
+- npm run dev 
 - php artisan downs
 ___________________________________________________________________
 Rotas - Goroutes laravel
 
 - São caminhos que determinamos dentro do nosso sistema
-- A organização das rotas do laravel
+- A organização das rotas do laravel 
  --- API
  --- Chanenels
  --- Console
@@ -26,12 +26,12 @@ Route::get('/contato', function () {
     return 'Contato';
 });
 
-- Para acessalas é simples ative seu serve e na url acrescente
+- Para acessalas é simples ative seu serve e na url acrescente 
 /contato e depois /sobre-nos;
 ___________________________________________________________________
 Controller
 
-- É responsavel por agrupar a logica doque deve ser feito a cada
+- É responsavel por agrupar a logica doque deve ser feito a cada 
 ação;
 - Essa sepração é ideal para uma melhor arquitetura e do seu codigo
 e para deixar as rotas apenas com os metodos http;
@@ -56,12 +56,12 @@ Route::get('/sobre-nos',[SobreNosController::class,'sobreNos']);
 ___________________________________________________________________
 Visualizações (views)- Introdução.
 
-- Temos o metodo tradicional que é o html e temos o metodo moderno
+- Temos o metodo tradicional que é o html e temos o metodo moderno 
 com API;
-- e por enquando vamos ver o medoto com views no caso o metodo
+- e por enquando vamos ver o medoto com views no caso o metodo 
 convencional;
 ___________________________________________________________________
-Super Gestão - implementando as visualizações principal, sobre-nos
+Super Gestão - implementando as visualizações principal, sobre-nos 
 e contato
 
 - As views são onde armazenamos todo o HTML do nosso código;
@@ -79,7 +79,7 @@ outro para contato;
 
 - Execute com php artisan serve;
 - Perceba que apenas alterou a forma de passar a resposta para a view;
-- Então até agora estamos funcionando assim -- Router -- vai ate o
+- Então até agora estamos funcionando assim -- Router -- vai ate o 
 Controller e vê em qual método ele vai participar e retorna pra view
 uma resposta;
 ___________________________________________________________________
@@ -104,8 +104,8 @@ Route::get('/contato/{nome}', function(String $nome){
 
 - Coloque para rodar no servidor php artisan serve;
 - Quando na Url você adcionar a rota contato perecba que vai chamar
-o contato padrão agora quando adicionado /contato/qualquerNome a
-framework entende que estamos chamando a rota contato com parametros
+o contato padrão agora quando adicionado /contato/qualquerNome a 
+framework entende que estamos chamando a rota contato com parametros 
 e entrega na view uma outra resposta;
 - Com isso podemos aumentar cada vez mais os parametros de uma rota;
 
@@ -117,25 +117,25 @@ e entrega na view uma outra resposta;
 ___________________________________________________________________
 Parâmetros opcionais e valores padrões
 
-- No modo anterior todos os parâmetros informados na url eram
-obrigatórios agora vamos ver como resolver isso e deixar de forma
+- No modo anterior todos os parâmetros informados na url eram 
+obrigatórios agora vamos ver como resolver isso e deixar de forma 
 opcional;
 - Temos que adicionar um ponto de interrogação ao final do parametro
 dentro da chave e colocar para ser recebido um valor caso não seja
 exigido o parâmetro;
 
-Route::get('/contato/{nome}/{z}/{a?}', function(String $nome,
+Route::get('/contato/{nome}/{z}/{a?}', function(String $nome, 
 String $z, String $a = "mensagem nao enviada"){
     echo"Estamos aqui: ". $nome, $z, $a;
 });
 
-- Perceba que dentro do paramentro 'a' ele tem um ponto de
-interrogação e caso não seja passado nada ele retorna "mensagem
+- Perceba que dentro do paramentro 'a' ele tem um ponto de 
+interrogação e caso não seja passado nada ele retorna "mensagem 
 nao enviada";
 - Temos que tomar muito cuidado também com isso pois o laravel se
 encontra limitado em deixar parâmetros opcionais pois, ele pode não
 entender oque te responder e aparecer 404 - NotFound;
-- O ideal é sempre deixar os parametros opcinais da direita para
+- O ideal é sempre deixar os parametros opcinais da direita para 
 esquerda de modo em que ele não perca essa ordem;
 ___________________________________________________________________
 Tratando parâmetros de rotas com expressões regulares
@@ -155,16 +155,16 @@ Route::get(
     }
 );
 
-- Perceba que aqui para realizarmos essa regra atribuimos um valor
+- Perceba que aqui para realizarmos essa regra atribuimos um valor 
 para a variavel categoria_id de igual a 1;
 - Desse modo quando testamos na nossa url o primeiro parametro que
 para a desnvolvimento foi definido como nome, pode ser qualquer nome,
 agora o categoria_id não;
-- Realize o teste na sua url e troque o valor de 1 para outro
-qualquer e veja que é gerado um erro apenas quando colocamos um
+- Realize o teste na sua url e troque o valor de 1 para outro 
+qualquer e veja que é gerado um erro apenas quando colocamos um 
 valor não número estilo string;
-- Agora podemos também realizar uma validação um pouco mais
-inteligente no modo em que passamos uma regra para o parametro ou
+- Agora podemos também realizar uma validação um pouco mais 
+inteligente no modo em que passamos uma regra para o parametro ou 
 seja;
 
 Route::get(
@@ -177,9 +177,9 @@ Route::get(
     }
 )->where('categoria_id', '[0-9]+');
 
-- Aqui em Where estou informando que o parametro categoria_id vai
+- Aqui em Where estou informando que o parametro categoria_id vai 
 funcionar de modo que ele só aceita número que sejam inteiros entre
-zero e nove e tenha nó minimo um número sendo simbolizado isso
+zero e nove e tenha nó minimo um número sendo simbolizado isso 
 pelo +;
 
 Route::get(
@@ -193,8 +193,8 @@ Route::get(
 )->where('categoria_id', '[0-9]+')->where('nome','[A-Za-z]+');
 
 
-- Adicionando esse código ao final do parenteses estou determinado
-agora que os dois parametros tem regras, sendo assim o primeiro
+- Adicionando esse código ao final do parenteses estou determinado 
+agora que os dois parametros tem regras, sendo assim o primeiro 
 paramentro é sendo obrigado a ter qual letra de a ou z maiuscula
 ou minuscula e sendo obrigao ter no minimo uma;
 
@@ -211,7 +211,7 @@ Super gestão - criando o menu de navegação
     </ul>
 
 - Caso queira trabalhar com dois terminal no vscode é possivel;
-- No terminal coloque php artisan route:list e será mostrado para
+- No terminal coloque php artisan route:list e será mostrado para 
 você a lista de todas as rotas que vc criou;
 ___________________________________________________________________
 Super Gestão - Implementando as rotas login, clientes, fornecedores
@@ -222,15 +222,15 @@ Super Gestão - Implementando as rotas login, clientes, fornecedores
 ___________________________________________________________________
 Agrupando rotas
 
-- O agrupamento de rotas serve para diversos motivos mas no nosso
+- O agrupamento de rotas serve para diversos motivos mas no nosso 
 caso vamos cria-lo para conseguir separar a parte em todos acessam
 para uma parte restrita.
-- para isso criamos uma rota com prefix chamdo app onde agora na
+- para isso criamos uma rota com prefix chamdo app onde agora na 
 nossa url não vai ser mais digitado
 
 http://127.0.0.1:8000/clientes
 
-- e sim;
+- e sim; 
 
 http://127.0.0.1:8000/app/clientes
 
@@ -242,14 +242,14 @@ Route::prefix('/app')->group(function () {
     Route::get('/produtos', [ProdutosController::class, 'produtos']);
 });
 
-- Usando o comando php artisan route:list podemos ver também a
+- Usando o comando php artisan route:list podemos ver também a 
 mudança nas rotas que agora se encontram com /app;
 
 ___________________________________________________________________
 Nomeando rotas
 
-- É possível a gente nomear nossas rotas com o intuito de deixar
-cada vez mais otimizado nossa código, porém não podemos utilizar
+- É possível a gente nomear nossas rotas com o intuito de deixar 
+cada vez mais otimizado nossa código, porém não podemos utilizar 
 esse apelido na nossa url apenas na nossa aplicação;
 
 Route::get('/', [PrincipalController::class, 'principal'])->name('site.index');
@@ -264,7 +264,7 @@ Route::prefix('/app')->group(function () {
     Route::get('/produtos', [ProdutosController::class, 'produtos'])->name('app.produtos');
 });
 
-- Como realizamos essa nomeação temos que ir nas nossas view e
+- Como realizamos essa nomeação temos que ir nas nossas view e 
 também trocar;
 
 <h3>Principal (view)</h3>
@@ -284,9 +284,9 @@ Redirecionamento de rotas
 - O redirecionamento ele é uma ferramenta muito boa pois dá a você
 ainda mais controle de rotas que o  seu cliente vai acessar;
 - Aqui criamos uma nova rota onde ela mostra apenas uma echo e logo
-em baixo criamos outra rota com a o metodo redirect onde caso vc
-acesse a primeira rota, o metodo redirect rapidamente te enviara
-para a segunda rota mencionada;
+em baixo criamos outra rota com a o metodo redirect onde caso vc 
+acesse a primeira rota, o metodo redirect rapidamente te enviara 
+para a segunda rota mencionada; 
 
 
 Route::get('/rota1', function(){
@@ -297,7 +297,7 @@ Route::redirect('/babiono-doido', '/rota1');
 
 
 - Realize o teste olhando sua url;
-- Também podemos realizar essa função de redirecionamento do
+- Também podemos realizar essa função de redirecionamento do 
 seguinte modo;
 
 
@@ -315,8 +315,8 @@ nome dado a rota 2;
 ___________________________________________________________________
 Rota de contingência (fallback)
 
-- Um rota de contingência nada mais é que uma rota que será exibida
-para o cliente caso ele procure por alguma que o nosso sitema não
+- Um rota de contingência nada mais é que uma rota que será exibida 
+para o cliente caso ele procure por alguma que o nosso sitema não 
 esteja encontrando;
 
 
@@ -333,7 +333,7 @@ de p1 e p2;
 
 Route::get('/teste/{p1}/{p2}', [TesteController::class, 'teste'])->name('teste');
 
-- Já no seu controller vamos colocar os parametros a serem
+- Já no seu controller vamos colocar os parametros a serem 
 recebidos;
 
 
@@ -341,22 +341,22 @@ public function teste(int $p1, int $p2){
         echo"A soma de $p1 + $p2 é igual:". ($p1+$p2);
     }
 
-- Perceba que até aqui utilizamos muitos conhecimento adiquirido
-no curso como criar rotas, controller, parametros, nomear a rota
+- Perceba que até aqui utilizamos muitos conhecimento adiquirido 
+no curso como criar rotas, controller, parametros, nomear a rota 
 etc;
-- No controller adicionamos como parametro do metodo o p1 e p2 e
+- No controller adicionamos como parametro do metodo o p1 e p2 e 
 também passamos um echo para realizar uma breve soma dos parametros
 recebidos atraves da url;
 ___________________________________________________________________
 Encaminhando parâmetros do controlador para visualização
 
 - Como já apredemos como pegar um parametro da routa e passar para o
-controller, agora vamos aprender a pegar do controller e jogar na
+controller, agora vamos aprender a pegar do controller e jogar na 
 view;
 - Criaremos uma view em site com nome de teste;
-- Dentro do controller criaremos um return view direcionando
+- Dentro do controller criaremos um return view direcionando 
 ('site.teste');
-- Lembre-se que quando for testar no servidor local passe dois
+- Lembre-se que quando for testar no servidor local passe dois 
 parametros;
 - Desse primeiro modo é com array associativo;
 
@@ -365,10 +365,10 @@ parametros;
        return view('site.teste', ['p1' =>$p1, 'p2'=>$p2]);
     }
 
-- Desse segundo modo com compact percebe que não utilizamos
-a variavel e sim a string;
+- Desse segundo modo com compact percebe que não utilizamos 
+a variavel e sim a string; 
 
-
+  
  public function teste(int $p1, int $p2){
        return view('site.teste', compact('p1', 'p2'));
     }
@@ -400,37 +400,10 @@ php nas views;
 _________________________________________________________
 Blade - Incluíndo comentários e blocos PHP puros
 
-<<<<<<< HEAD
-- Agora criaremos a FornecedorController e mudaremos como
-ele é chamado lá em route/web.php;
-- Criaremos um metodo index onde ele tem um return view para resources/view/app/fornecedor.blade.php crie essa estrutura caso seja necessario(app/fornecedor.blade.php);
-
-
-   public function index(){
-        return view('app.fornecedor.index');
-    }
-
-    Route::get('/fornecedores', [FornecedoresController::class, 'index'])->name('app.fornecedores');
-
-
-<h3>fornecedor</h3>
-
-- Para adicionar o cometario no blade {{--uwusnp--}};
-- Tenha o habito de sempre comentar seu código;
-_________________________________________________________
-Extra - Adicionando a extensão VSCode Laravel-Blade
-
-- Adicione a extensão laravel-blade;
-_________________________________________________________
-Blade @if / @else
-
--
-
-=======
 - Para incluir comentario com blade {{--fuohejrfheruopeiur--}};
 - Para abrir o php puro no blade utilizamos {{}} ou <?= ?>;
 _________________________________________________________
-Blade @if @else
+Blade @if @else 
 
 @dd($fornecedores)
 
@@ -463,7 +436,7 @@ Fornecedor:{{$fornecedores[0]['nome']}};
 <br>
 Status:{{$fornecedores[0]['status']}};
 
-- E simulado no servidor local aparece a info solicitada de
+- E simulado no servidor local aparece a info solicitada de 
 fornecedor e status.
 - Ao inves de utilizar isso tudo;
 
@@ -484,7 +457,7 @@ Blade @isset
 
 - O isset funciona para identificar se realmente um array exite;
 - Caso você passe um metodo e não tenha colocado para retornar da
-view vc pode utilizar o @isset desse modo no metodo;
+view vc pode utilizar o @isset desse modo no metodo; 
 
 
 public function index(){
@@ -497,14 +470,14 @@ public function index(){
 
 - E assim na index;
 
-
+ 
 @isset($fornecedores)
     Fornecedor:{{$fornecedores[0]['nome']}};
     <br>
     Status:{{$fornecedores[0]['status']}};
 @endisset
 
-- Quando for testado no servidor local repare que, não retornará
+- Quando for testado no servidor local repare que, não retornará 
 nada pois essa info não foi selecionada para a view;
 - Agora utilizando a vaiavel;
 
@@ -530,7 +503,7 @@ Blade @empty
 - Serve para saber se uma variavel esta ou não vazio;
 - Retorna true para vazio;
 - "", 0,0.0, '0', null, false, arra(), $var;
-- Mude a atribuição do cnpj para qualquer uma das alternativas a
+- Mude a atribuição do cnpj para qualquer uma das alternativas a 
 cima e na index também ficando assim;
 
 
@@ -595,12 +568,12 @@ com a view nessa condição vai retornar dado não foi preenchido;
 
  CNPJ:{{$fornecedores[1]['cnpj'] ?? 'Dano não foi preenchido'}};
 
-- Pois ela entende que essa variavel não recebeu nenhum valor,
+- Pois ela entende que essa variavel não recebeu nenhum valor, 
 ela também entende caso não seja definida o (isset);
 ________________________________________________________________
 Balde - switch - case
 
-- O switch nada mais é que uma porção de opções de que vc pode
+- O switch nada mais é que uma porção de opções de que vc pode 
 gerar, se ele for escolhido ele para ali, senão cai no default
 ou segue normalmente;
 
@@ -660,7 +633,7 @@ Blade - @for
 ________________________________________________________________
 Blade - @while
 
-- É uma função simples que funciona de modo que em quanto vc não
+- É uma função simples que funciona de modo que em quanto vc não 
 terminal uma tarefa, ou enquanto for verdadeiro, ou enquanto for
 falso isso vai continuar;
 
@@ -737,7 +710,7 @@ public function index(){
 ________________________________________________________________
 Blade - Escapando a tag de impressão do Blade
 
-- Tem como vc mostrar as chaves do seu código caso seja
+- Tem como vc mostrar as chaves do seu código caso seja 
 necessário ou até mesmo o seu código, você adiociona @ na frente
 da expressão;
 
@@ -758,7 +731,7 @@ da expressão;
     @endforelse
 @endisset
 ________________________________________________________________
-Blade - Variável loop
+Blade - Variável loop 
 
 - Consigo atravez so loop do blade verificar as interações para
 um controle de uma aplicação.
@@ -781,7 +754,7 @@ um controle de uma aplicação.
     @endforelse
 @endisset
 
-- Também consigo de forma muito simples vizualizar a primeira
+- Também consigo de forma muito simples vizualizar a primeira 
 interação da aplicação;
 
 @isset($fornecedores)
@@ -822,21 +795,21 @@ ________________________________________________________________
 O que são assets ?
 
 - É tudo que é utilizado como complemento das views Html e Css
-como imagens, vídeos audios ou até mesmo os scripts do
+como imagens, vídeos audios ou até mesmo os scripts do 
 java-scrpits;
-- A tag asset sempre aponta para a o diretorio assets então vc
+- A tag asset sempre aponta para a o diretorio assets então vc 
 não precisa passalá ao colocar o assets só se houver mais pastas;
 ________________________________________________________________
 Adicionando arquivos CSS externos as páginas web
 
-- Criei uma pasta css em public adicione seu estilo e chame ela
+- Criei uma pasta css em public adicione seu estilo e chame ela 
 com link e assets;
-________________________________________________________________
+________________________________________________________________ 
  Blade - Template com @extends, @section e @yield parte 1
 
 - Para criar um template criei um pasta dentro de site com o nome
 de layout e adicionei um arquivo chamado basico.blade.php;
-- Dentro dessa página joguei o código de interface padrão de
+- Dentro dessa página joguei o código de interface padrão de 
 todas as views;
 
 
@@ -851,7 +824,7 @@ todas as views;
     </body>
 </html>
 
-- E utilizo o extends para importar o template para view e o
+- E utilizo o extends para importar o template para view e o 
 section para importar do template o oque quero mostrar na view;
 - Usamos @extends('site.layouts.basico') e @section('conteudo')
 na view e @yield('conteudo') no conteudo;
@@ -873,9 +846,9 @@ ________________________________________________________________
 Blade - Realizando include de views (@include)
 
 - Inclusão de todo conteudo não parcial como o extends;
-- Vá té seu diretorio de layouts e crie um novo chamado
+- Vá té seu diretorio de layouts e crie um novo chamado 
 _partials, adicione um arquivo topo.blade.php;
-- Em seguida pegue dentro do arquivo contato, a div completa
+- Em seguida pegue dentro do arquivo contato, a div completa 
 chamado de topo e recorte e cole ela em topo;
 - em seguida adicione no arquivo basico.blade a seguinte linha;
 @include('site.layouts._partials.topo') pois ele vai utilizar o
@@ -891,19 +864,173 @@ enviar o formulario e utilizamos o metodo get;
 ________________________________________________________________
 Enviando o formulário de contato via POST
 
-- Para utilizarmos o metodo post basta trocarmos o metodo lá nas
+- Para utilizarmos o metodo post basta trocarmos o metodo lá nas 
 rotas e na view, porém não é tão simples assim temos que usar a
 tag @csrf para conseguir utilizar o metodo post essa tag é como
 se fosse um token mas nas proximas aulas veremos mais sobre ele
 ________________________________________________________________
 Entendendo o token @csrf
 
-- O @csrf é como uma marca que você coloca em todos os blocos
+- O @csrf é como uma marca que você coloca em todos os blocos 
 que você adiciona à sua casa. Essa marca é como uma senha secreta
- que só você conhece. Quando você quiser adicionar ou remover
-blocos da sua casa, você precisa mostrar essa marca para provar
+ que só você conhece. Quando você quiser adicionar ou remover 
+blocos da sua casa, você precisa mostrar essa marca para provar 
 que é você quem está fazendo isso;
-- Portanto, o @csrf é uma medida de segurança importante que
-ajuda a proteger os sites contra atividades maliciosas,
-garantindo que apenas as pessoas autorizadas possam enviar
+- Portanto, o @csrf é uma medida de segurança importante que 
+ajuda a proteger os sites contra atividades maliciosas, 
+garantindo que apenas as pessoas autorizadas possam enviar 
 dados para o site;
+
+_________________________________________________________________
+Criando o Model SiteContato
+
+- php artisan make:model SiteContato -m com esse comando a gente
+cria uma model e também uma migração para o banco de dados;
+- Essa migração serve em especial para armazenar os dados em 
+banco de dados;
+- SiteContato é o nome que eu dei;
+_________________________________________________________________
+Implementando a migration SiteContato
+
+- A implementação dos dados dentro da migrations foi realizada e
+nela você pode adicionar diversas colunas de dados, aqui
+adicionamos os inputs do formulario dessa forma;
+
+
+Schema::create('site_contatos', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+            $table->string('nome', 50);
+            $table->string('telefone', 50);
+            $table->string('email', 80);
+            $table->integer('motivo_contato');
+            $table->text('mensagem');
+
+        });
+_________________________________________________________________
+Configurando o BD SQLite e executando as migrations
+
+- Instale o xampp e utilize o mysql do xampp é um aotimo opção 
+para trabalhar com php e laravel;
+- Para migrar os dados ao mysql utilize o comando php artisan 
+migrate;
+_________________________________________________________________
+Criando a base de dados da aplicação e configurando a conexão
+(.env).
+
+- Para criarmos a base de dado para aplicação e comunicação de um
+banco de dados temos que ir em database/config em seguida em .env
+e lá constará todos os parametros para cada banco de dados e suas
+conexões;
+_________________________________________________________________
+Migration - Executando as migrações
+
+- php artisan migrate; 
+- Caso não tenha criado nenhum banco de dados antes ele vai te 
+o terminal perguntará se deseja crailo e você em conformidade 
+digitara yes, y ou s dependendo do seu terminal;
+_________________________________________________________________
+Migration - Criando e executando a migration fornecedores
+
+- php artisan make:model Fornecedor
+- Se por algum motivo vc não coloque o -m na craição da model
+muito simples resolver isso é só vc dar esse outro comando;
+- php artisan make:migration create_fornecedores_table por padrão
+devemos colocar dessa forma e também colocar no plural o nome que
+será herdado da model;
+- adicone um linha para nome dos forncedores agora;
+- e em seguida de um migrate no terminal para migrar a nova 
+migração;
+_________________________________________________________________
+Migration - Adicionando campos a uma tabela
+
+- Caso tenhamos esquecido de colocar mais colunas dentro do nosso
+banco de dados poderiamos realizar essa craição na propria linha
+de comando o mysql ou até mesmo realizar as alterações no código
+da tabela porém essas duas opções seriam de extrema ruindade para
+nosso projeto. onde ele poderia causar perdar de informações e
+também causar desalinhamneto e desenformação com isso iremos
+utilizar outro metodo;
+- Perceba que a nova migration ela foi criada sem nenhuma infor-
+mação;
+- Iremos pegar o esquema da fornecedores e coloca nela;
+- E onde está escrito create alteramos para table uma vez que não
+desejamos criar um novo banco de dado sim implementar colunas 
+novas;
+- Acresentaremos duas tableas onde uma é email e outra é o UF do 
+estado;
+- E com isso conseguimos acresentar essas duas novas tabelas sem 
+que elas atrapalhem nosso banco de dados e nosso codigo;
+_________________________________________________________________
+Migrations metodo up e down
+
+- up é executado quano damos um comando php artisan migrate com 
+esse comando o laravel consegue verificar e implemnatar tudo 
+desde as mais novas até as mais velhas migrações;
+- down reverter tudo que foi criado no metodo up;
+- Para reverter nossas criações utilizamos o comando;
+
+php artisan migrate:rollback
+_________________________________________________________________
+Migration - Modificadores Nullable e Default
+
+- Criamos uma nova tabela com o nome create_produtos_table;
+- Acionamos algumas informaçãoes e tmabém definimos quais delas 
+podem ser nullas ou seja não precisa ser preenchidas e qual delas
+tenham valores pré definidos uma vez que não seja colocado nada;
+_________________________________________________________________
+Adicionando chaves estrangeiras (Relacionamento um para um)
+
+- Craimos uma tabela nova no banco de daos com o coamndo php 
+artisan make:migration create_produto_detalhes_table;
+- adicionamos alguns valores para novas colunas;
+
+
+ $table->id();
+            $table->unsignedBigInteger('produto_id');
+            $table->float('comprimento',8,2);
+            $table->float('largura',8,2);
+            $table->float('altura',8,2);
+            $table->timestamps();
+
+- Tmabém adcionamos a tabela de referenciação que produto_id vai
+ ter;
+
+
+ $table->foreign('produto_id')->references('id')->on('produtos');
+ $table->unique('produto_id');
+
+- Nessas duas linha estmos disendo que a coluna produto_id pode
+ter um produto_detalhes se refecenciando por id da tabela 
+produtos e que também por obrigatoriedade ele tem que ser unico;
+_________________________________________________________________
+Migration - Adicionando chaves estrangeiras (Relacionamento um 
+para muitos)
+
+- Criamos uma nova tabela com a denominação unidades, onde para 
+relacionar ela a diversos produtos e diversos detalhes;
+
+Schema::create('unidades', function (Blueprint $table) {
+$table->id();
+$table->string('unidade', 5); //cm, mm, kg
+$table->string('descricao', 30);
+$table->timestamps();
+        });
+
+//adicionar o relacionamento com a tabela produtos
+Schema::table('produtos', function (Blueprint $table){
+$table->unsignedBigInteger('unidade_id');
+$table->foreign('unidade_id')->references('id')->on('unidade');
+        });
+
+//adicionar o relacionamento com a tabela produto_detalhes
+Schema::table('produto_detalhes', function (Blueprint $table){
+$table->unsignedBigInteger('unidade_id');
+$table->foreign('unidade_id')->references('id')->on('unidade');
+        });
+    }
+_________________________________________________________________
+Migration - Adicionando chaves estrangeiras (Relacionamento 
+muitos para muitos)
+
+-
