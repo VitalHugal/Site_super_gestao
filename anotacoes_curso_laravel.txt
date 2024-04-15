@@ -880,3 +880,56 @@ que é você quem está fazendo isso;
 ajuda a proteger os sites contra atividades maliciosas, 
 garantindo que apenas as pessoas autorizadas possam enviar 
 dados para o site;
+
+_________________________________________________________________
+Criando o Model SiteContato
+
+- php artisan make:model SiteContato -m com esse comando a gente
+cria uma model e também uma migração para o banco de dados;
+- Essa migração serve em especial para armazenar os dados em 
+banco de dados;
+- SiteContato é o nome que eu dei;
+_________________________________________________________________
+Implementando a migration SiteContato
+
+- A implementação dos dados dentro da migrations foi realizada e
+nela você pode adicionar diversas colunas de dados, aqui
+adicionamos os inputs do formulario dessa forma;
+
+
+Schema::create('site_contatos', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+            $table->string('nome', 50);
+            $table->string('telefone', 50);
+            $table->string('email', 80);
+            $table->integer('motivo_contato');
+            $table->text('mensagem');
+
+        });
+_________________________________________________________________
+Configurando o BD SQLite e executando as migrations
+
+- Instale o xampp e utilize o mysql do xampp é um aotimo opção 
+para trabalhar com php e laravel;
+- Para migrar os dados ao mysql utilize o comando php artisan 
+migrate;
+_________________________________________________________________
+Criando a base de dados da aplicação e configurando a conexão
+(.env).
+
+- Para criarmos a base de dado para aplicação e comunicação de um
+banco de dados temos que ir em database/config em seguida em .env
+e lá constará todos os parametros para cada banco de dados e suas
+conexões;
+_________________________________________________________________
+Migration - Executando as migrações
+
+- php artisan migrate; 
+- Caso não tenha criado nenhum banco de dados antes ele vai te 
+o terminal perguntará se deseja crailo e você em conformidade 
+digitara yes, y ou s dependendo do seu terminal;
+_________________________________________________________________
+Migration - Criando e executando a migration fornecedores
+
+- 
