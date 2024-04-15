@@ -1091,4 +1091,59 @@ de dados de uma aplicação;
 _________________________________________________________________
 Tinker - Introdução
 
+- É uma ferramenta que permite acesso a classe do projeto;
+- Testar o mapeamento do nosso projeto em especifico os model eo 
+eloquente do laravel;
+_________________________________________________________________
+Eloquent - Inserindo registros
+
+- atraves do treminal ligue o tinker;
+- em seguida de um comando para gerar um obejto;
+
+$contato = new \App\Models\SiteContato();
+
+- Adicionamos linha por linha do site contato de forma manual 
+atraves do tinker;
+
+
+> $contato = new \App\Models\SiteContato();
+= App\Models\SiteContato {#5101}
+
+> $contato->nome ='Jorge';
+= "Jorge"
+
+> $contato->telefone ='11-921216363';
+= "11-921216363"
+
+> $contato->email ='jorge@teste.com.br';
+= "jorge@teste.com.br"
+
+> $contato->motivo_contato ='1';
+= "1"
+
+> $contato->mensagem ='Parabens, show de bola';
+= "Parabens, show de bola"
+
+> print_r($contato->getAttributes());
+Array
+(
+    [nome] => Jorge
+    [telefone] => 11-921216363
+    [email] => jorge@teste.com.br
+    [motivo_contato] => 1
+    [mensagem] => Parabens, show de bola
+)
+= true
+
+> $contato->save
+= null
+
+> $contato->save();
+= true
+
+- Com esses comando realizamos a alimentação de dados;
+_________________________________________________________________
+Eloquent - Ajustando o nome da tabela no Model para um correto 
+ORM
+
 - 
