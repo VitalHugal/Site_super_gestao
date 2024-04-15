@@ -1225,4 +1225,14 @@ Eloquent - Selecionando registros com whereIn() e whereNotIn()
 
 - Realiza uma operação reversa onde ele não vai mostrar o apenas 
 1 e 3;
+_________________________________________________________________
+Selecionando registros com whereBetween() e whereNotBetween()
 
+- O whereBEtween ele tem como função buscar tudo dentro de um 
+intervalo ou seja caso vc tenha 10 registros e colocou do 3 ao 6
+ele vai bucar o 3, 4, 5 eo sexto
+
+$contato2 = SiteContato::whereBetween('id',[3,6])->get();
+
+- E o NotBetween não vai buscar nada nesse intervalo;
+_________________________________________________________________
