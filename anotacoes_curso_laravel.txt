@@ -1257,3 +1257,23 @@ Eloquent - Collection toArray e toJson
 - Com o toArray consguimos realizar diversar coisa porém usamos
 com bastante frequencia na troca do front com back;
 _________________________________________________________________
+Eloquent - Collection pluck
+
+- Com o pluck podemos pegar somente o email de uma coleção de 
+cadastro por exemplo;
+
+SiteContato::all()->pluck('email');
+= Illuminate\Support\Collection {#6566
+    all: [
+      "jorge@teste.com.br",
+      "maria@teste.com.br",
+      "joao@contato.com.br",
+      "rosa@contato.com.br",
+      "fernando@contato.com.br",
+      "andre@contato.com.br",
+      "ana@contato.com.br",
+      "helena@contato.com.br",
+_________________________________________________________________
+Eloquent - Atualizando registros (save)
+
+- 
