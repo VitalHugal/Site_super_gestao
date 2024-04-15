@@ -1168,4 +1168,45 @@ por ele;
 _________________________________________________________________
 Eloquent - Inserindo registros com Create e Fillable
 
--
+- O $fillable ele que vai determinar oque pode ou não pode 
+entrar no banco de dados;
+
+
+protected $fillable = ['nome', 'site', 'uf', 'email'];
+
+- Atraves disso podemos adicionar informações com tags estaticas 
+no banco de dados 
+
+
+ \App\Models\Fornecedor::create(['nome'=>'abc','site'=>'abc.com','uf'=>'SP','email'=>'abc@teste.com.br']);
+_________________________________________________________________
+ Eloquent - Selecionando registros com all()
+
+- podemos utiliazar alguns jeitos para buscar todos os registros
+um deles é;
+
+
+$fornecedores =\App\Models\Fornecedor::all();
+
+- Você determina uma variavel, depois onde ele está e por fim
+:: alls() para selecionar todos os registros;
+_________________________________________________________________
+Eloquent - Selecionando registros com find()
+
+- use \App\Models\Fornecedor engloba toda a model fornecedor;
+
+$fornecedores2 = Fornecedor::find(1);
+
+- Nessa linha estou criando uma variavel que recebe fornecedor
+:: find(1) ou seja ele busca pelo id e pode também buscar  por 
+mais de um, no caso escolhi o numero 1;
+_________________________________________________________________
+Eloquent - Selecionando registros com where()
+
+- Com o where conseguimos realizar diversas coisa uma delas é 
+comparação;
+
+ $contatos =SiteContato::where('id','>','1')->get();
+
+- Nesse trecho ele vai buscar em sitecontato qualquer id que 
+seja maior que um e utilizamos o get para visualizar;
