@@ -1033,4 +1033,62 @@ _________________________________________________________________
 Migration - Adicionando chaves estrangeiras (Relacionamento 
 muitos para muitos)
 
--
+ //criando a tabela filias
+        Schema::create('filiais', function (Blueprint $table){
+            $table->id();
+            $table->string('filial', 30);
+            $table->timestamps();
+        });
+        //criando a tabela produto_filiais
+        Schema::create('produto_filiais', function (Blueprint $table){
+            $table->id();
+            $table->unsignedBigInteger('filial_id');
+            $table->unsignedBigInteger('produto_id');
+            $table->decimal('preco_venda', 8,2);
+            $table->integer('estoque-minimo');
+            $table->integer('estoque-mximo');
+            $table->timestamps();
+
+            //foreign key (constraints)
+            $table->foreign('filial_id')->references('id')->on('filiais');
+            $table->foreign('produto_id')->references('id')->on('produtos');
+
+        });
+
+        //removendo colunas da tabela produtos
+        Schema::table('produtos', function (Blueprint $table){
+            $table->dropColumn(['preco_venda','estoque_minimo', 'estoque_maximo']);
+        });
+    }
+_________________________________________________________________
+Migration - Modificador After
+
+- After permite que novas colunas sejam inseridas em pontos pré 
+existentes;
+- Criamos o uma nova tabela onde nela conseguimos definir onde
+queremos o que sej inserida essa nova tabela no caso escolhemos
+depois do nome;
+
+
+Schema::table('fornecedores', function (Blueprint $table) {
+            $table->string('site',150)->after('nome')->nullable();
+         });
+_________________________________________________________________
+Migration - Comandos Status, Reset, Refresh e Fresh
+
+- Status -> o resultado desse comando serve para vermos quais 
+foram a criações de tableas por ordem;
+- Reset -> reseta o banco de dados inteiro;
+- Refresh -> o objetivo dele é a penas reacriar o mesmo banco de 
+dados pois ele faz o rollback e instala todos novamente;
+- O comando fresh ele drop tudo e refaz o migrate novamente bem
+parecido com refresh;
+_________________________________________________________________
+Entendendo o Eloquent ORM
+
+- basicamente ele que faz toda interatividade de armazenamento
+de dados de uma aplicação;
+_________________________________________________________________
+Tinker - Introdução
+
+- 
