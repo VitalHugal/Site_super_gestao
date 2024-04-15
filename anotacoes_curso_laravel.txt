@@ -1284,4 +1284,8 @@ $fornecedor->nome = 'Fornecedor 123';
 $fornecedor->save();
 
 - Prontinho está alterado;
+- Podemos também realizar essa atualização com fill;
+
+$fornecedor->fill(['nome'=>'alugatrip','site'=>'alugatrip.com','email'=>'alugatrip@teste.com','uf'=>'SP']);
 _________________________________________________________________
+
