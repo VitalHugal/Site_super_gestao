@@ -1210,3 +1210,19 @@ comparação;
 
 - Nesse trecho ele vai buscar em sitecontato qualquer id que 
 seja maior que um e utilizamos o get para visualizar;
+
+$contatos =SiteContato::where('mensagem','like','%App%')->get();
+_________________________________________________________________
+Eloquent - Selecionando registros com whereIn() e whereNotIn()
+
+ $contato2 = SiteContato::whereIn('motivo_contato',[1,3]);
+
+
+- Realiza uma operação de comparação ou seja apenas com 1 e 3;
+
+
+ $contato2 = SiteContato::whereNotIn('motivo_contato',[1,3]);
+
+- Realiza uma operação reversa onde ele não vai mostrar o apenas 
+1 e 3;
+
