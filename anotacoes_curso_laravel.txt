@@ -1452,3 +1452,46 @@ php artisan db:seed --class=SiteContatoSeeder
 - Esse parametro a mais utilizado serve para encaminhar uma 
 classe especifica não todas;
 _________________________________________________________________
+Factories (semeando tabelas em massa com a dependência Faker)
+
+- Factories junto com o faker é utilizado para uma semeação em 
+massa no banco de dado inserindo quantos registros vc quiser;
+- Para criar um uma factory;
+
+php artisan make:factory SiteContatoFactory --model=SiteContato
+
+- Com esse comando além de pedir para criar passei um parametro
+de ela seguir o model SiteContato;
+
+
+<?php
+
+namespace Database\Factories;
+
+use App\Models\SiteContato;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+
+class SiteContatoFactory extends Factory
+{
+    protected $model = SiteContato::class;
+
+    public function definition()
+    {
+        return [
+            'nome' => $this->faker->name,
+            'telefone' => $this->faker->phoneNumber,
+            'email' => $this->faker->unique()->safeEmail,
+            'motivo_contato' => $this->faker->numberBetween(1,3),
+            'mensagem' => $this->faker->text(200),
+        ];
+    }
+}
+
+- No SiteContatoSeeder você precisa comentar oque já tiver lá e
+em seguida adiconar essa linha de código;
+
+ SiteContatoFactory::new()->count(100)->create();
+
+- Acesse seu banco de dados e veja o quanto de dados foram 
+inseridos;
