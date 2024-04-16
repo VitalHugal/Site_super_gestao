@@ -1585,3 +1585,51 @@ _________________________________________________________________
 tipo de parametro de min e max pois ele são passados com 2 pontos
 e com barra em pé não deitada;
 _________________________________________________________________
+Repopulando o formulário (Request Old Input) parte 1
+
+- Esse metodo vai permitir vc a não perder os dados quando der 
+erro;
+- Temos que adicionar no form.blade os parametros que forma 
+digitados
+
+value="{{old('nome')}}"
+value="{{old('telefone')}}"
+value="{{old('email')}}"
+
+- Com o value e tag old do laravel que deixa os ultimos valores
+informados;
+_________________________________________________________________
+Repopulando o formulário (Request Old Input) parte 2
+
+{{old('motivo_contato') == 1 ? 'selected' : ''}}
+
+- Para selected utilizamos o old dessa forma;
+
+@foreach 
+( $motivo_contatos as $key => $motivo_contato)
+        <option value="{{$key}}" {{old('motivo_contato') ==
+$key ? 'selected':''}} >{{ $motivo_contato}}</option>
+@endforeach
+
+- Deixamos assim o nosso option do form de uma forma mais 
+completa;
+_________________________________________________________________
+Ajustando o formulário de contato na rota principal
+
+- No controller; 
+
+ $motivo_contatos =[
+            '1' =>'Dúvida',
+            '2' =>'Elogio',
+            '3' =>'Reclamação',
+        ];
+
+       return view('site.principal',['motivo_contatos'=> $motivo_contatos]);
+    }
+
+- No blade;
+
+  @component('site.layouts._components.form_contato' ,['classe' =>'borda-branca', 'motivo_contatos' => $motivo_contatos])
+
+  @endcomponent
+_________________________________________________________________
