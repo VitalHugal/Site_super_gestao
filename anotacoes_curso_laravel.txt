@@ -1661,3 +1661,65 @@ contatos_id no form, SiteContato, e contatocontroller;
 - Em seguida realizamos a implementação de um registro no banco 
 de dados;
 _________________________________________________________________
+Validação de campos únicos (unique)
+
+- Para fins de teste estamos colocando o unique no nome;
+- Ele serve para não deixar que uma mesma pessoa se cadastre com 
+varios usuários diferentes tornando assim o site ou aplicação 
+mais controlada e segura;
+
+
+'nome'=>'required|min:3|max:40|unique:site_contatos'
+_________________________________________________________________
+Customizando a apresentação dos erros de validação parte 1
+
+- Para melhorar o aspectos dos erros que tinhamos colocado para 
+aparecer criamos uma condição onde se tiver erro aparece senão
+não e cfoi colocado um foreach para percorrer os todos os erros;
+
+@if ($errors->any())
+<div style="position:absolute; top:0px; left:0px; width:100%; background:red;">
+        @foreach ($errors->all() as $erro )
+        {{$erro}}
+        <br>
+        @endforeach
+    </div>
+@endif
+_________________________________________________________________
+Customizando a apresentação dos erros de validação parte 2
+
+- Criamos esse pequeno trecho de código pois é possível os erros
+aparecerem de forma mais limpa não grotescamente;
+
+
+@if ($errors->has('nome'))
+        {{$errors->first('nome')}}
+@endif
+
+- Adicionamos em cada input que temos;
+_________________________________________________________________
+Customizando as mensagens de feedback de validação
+
+- Iremos Traduzir os erros que estão em inglês;
+
+public function salvar(Request $request){
+        //realizar a validação dos dado no formulario recebidos pelo request
+    $request->validate(['nome'=>'required|min:3|max:40|unique:site_contatos',
+    'telefone' =>'required',
+    'email'=>'email',
+    'motivo_contatos_id'=>'required',
+    'mensagem'=>'required|max:2000'
+    ],
+    [
+        'required'=> 'O campo deve ser preenchidos.',
+        'email'=> 'O e-amil informado não é válido.',
+        'mensagem.max' => 'O campo deve ter no máximo 2000 caracteres',
+        'nome.min'=> 'É necessário que o nome tenha mais de 3 letras.',
+        'nome.max'=> 'É necessário que o nome tenha menos de 40 letras.',
+        'nome.unique'=>'Nome informado já cadastrado.'
+    ]
+
+- Nesse trecho de código no segundo parametro estamos atribuindo 
+mesagens pré-definidas para erros em campo que estão com algum 
+tipo de validação;
+_________________________________________________________________

@@ -45,7 +45,17 @@ class ContatoController extends Controller
     'email'=>'email',
     'motivo_contatos_id'=>'required',
     'mensagem'=>'required|max:2000'
-]);
+    ],
+    [
+        'required'=> 'O campo deve ser preenchidos.',
+        'email'=> 'O e-amil informado não é válido.',
+        'mensagem.max' => 'O campo deve ter no máximo 2000 caracteres',
+        'nome.min'=> 'É necessário que o nome tenha mais de 3 letras.',
+        'nome.max'=> 'É necessário que o nome tenha menos de 40 letras.',
+        'nome.unique'=>'Nome informado já cadastrado.'
+    ]
+
+);
     SiteContato::create($request->all());
     return redirect()->route('site.index');
     }
