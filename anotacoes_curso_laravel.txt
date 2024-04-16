@@ -1539,3 +1539,24 @@ essas informações
 
 - atraves desse trecho de código conseguimos realizar agora o 
 armazenamento de dados no banco;
+- Podemos realizar esse armazenamento do banco de dados de outras
+maneira como;
+
+  $contato = new SiteContato();
+        $contato->fill($request->all());
+        $contato->save();
+
+- Desse modo temos que ir no Model SiteContato e adicionar 
+ 
+protected $fillable =['nome','telefone','email', 
+'motivo_contato', 'mensagem'];
+
+- Com isso vc pode consgue preencher os campo que foi setado
+ no fillable;
+-  E uma outra opção de realizar esse armazenamento;
+
+$contato = new SiteContato();
+$contato -> create($request->all());
+
+- Porém desse modo também temos que ter o fillable criado na 
+model;
