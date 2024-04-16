@@ -1510,3 +1510,32 @@ framwork consegue entender oque esta sendo pedido;
         return view('site.contato');
     }
 
+- Quando vermos no inspecionar o token ele é criado atraves do 
+@csrf que adicionamos em todo formulário;
+- Sem a utilização do token fica inviavel utilizar o request;
+- Para puxar os dados de um cliente  podemos no controller 
+utilizar uma especie de var_dump que é o;
+
+ print_r($request->all());
+_________________________________________________________________
+Gravando os dados do formulário no banco de dados
+
+- Para gravar as informações no banco de dados é muito importante
+que você puxe a model que vc criou do banco de dados no cado aqui
+puxei a model SiteContato
+
+use \App\Models\SiteContato;
+
+- E em seguida é necessário vc instanciar um método para gravar
+essas informações
+
+ $contato = new SiteContato();
+        $contato->nome = $request->input('nome');
+        $contato->telefone = $request->input('telefone');
+        $contato->email = $request->input('email');
+        $contato->motivo_contato = $request->input('motivo_contato');
+        $contato->mensagem = $request->input('mensagem');
+	$contato->save();
+
+- atraves desse trecho de código conseguimos realizar agora o 
+armazenamento de dados no banco;
