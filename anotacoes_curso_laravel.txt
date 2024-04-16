@@ -1495,3 +1495,18 @@ em seguida adiconar essa linha de código;
 
 - Acesse seu banco de dados e veja o quanto de dados foram 
 inseridos;
+_________________________________________________________________
+Entendendo o objeto Request
+
+- Recuperar dados do formulario e trablahar em cima desses dados;
+- cliente -> back-end temos um request;
+- Dentro do nosso controller conseguimos colocar o metodo request
+com uma variavel request pois dessa forma atraves do request a 
+framwork consegue entender oque esta sendo pedido;
+
+
+ public function contato(Request $request){
+        var_dump($_POST);
+        return view('site.contato');
+    }
+
