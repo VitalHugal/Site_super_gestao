@@ -1288,4 +1288,167 @@ $fornecedor->save();
 
 $fornecedor->fill(['nome'=>'alugatrip','site'=>'alugatrip.com','email'=>'alugatrip@teste.com','uf'=>'SP']);
 _________________________________________________________________
+Eloquent - Atualizando registros (where e update)
 
+- Para atualizar um registro podemos utilizar o update;
+
+Fornecedor::whereIN('id', [1,2])->update(['nome' => '12345','site' =>'abcde']);
+
+- Nesse caso eu selecionei o id 1 e 2 e fiz uma atualização para 
+os dois em nome e em site;
+_________________________________________________________________
+Deletando registros (delete e destroy)
+
+- Para utilizarmos o delete é muito simples;
+
+use \App\Models\SiteContato;
+$contato = SiteContato::find(4);
+$contato->delete();
+
+- Nesse trecho de código eu realizei a chamda do SiteContato pois
+é onde eu quero realizar mudanças;
+- Em seguida criei um variavel que recebe site contato chamando o
+id de numero 4;
+- Após ter tornado a variavel contato em no numero 4 passo o 
+parametro para deletar;
+- Podemos também deletar um registro desses outros modos;
+
+SiteConato::destroy(5);
+SiteContato::find(7)->delete();
+_________________________________________________________________
+Eloquent - Deletando registros com SoftDelete
+
+- O softdelete ele faz com que os registros não sejam excluidos 
+definitivamente, ele cria uma especie de um histórico;
+- Para utilizar essa função precisamos importar uma biblioteca no
+caso a use Illuminate\Database\Eloquent\SoftDeletes (no plural);
+
+Trait são pedaços de códigos que conseguimos colocar dentro de
+uma class;
+
+- Também colocamos SoftDelete dentro da nossa class desse modo;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+class Fornecedor extends Model
+{
+    use SoftDeletes;
+    
+    protected $table ='fornecedores';
+    protected $fillable = ['nome', 'site', 'uf', 'email'];
+
+}
+
+- Criaremos uma nova migrations experimental para implementação
+de uma nova tabela com o nome de alter_fornecedores_softdelele;
+- Com isso se vc ir em fornecedores no banco de dados vera que 
+uma nova tabela foi implementada deleted_at;
+
+
+use \App\MOdels\Fornecedor;
+> $fornecedor = Fornecedor::find(2);
+$fornecedor->delete();
+
+- Fazendo isso você verá que uma novo registro foi adicionado na 
+tabela deleted_at;
+- No banco de dados aparece e agora quando vc faz a pesquisa pelo
+eloquente ele não mostrara nada pois ele tem a inteligencia e 
+entende que aquela parte foi retirada;
+- vocÊ consegue excluir do banco de dados fazendo um outro metodo
+que chamando de forçar a exclusão;
+
+
+$fornecedor->forceDelete();
+_________________________________________________________________
+Eloquent - Selecionando e restaurando registros deletados com 
+SoftDelete
+
+- Para buscarmos o registro que ja tenha sido excluido suavemente
+e registros ativos utilizamos esse trecho de código;
+
+Fornecedor::withTrashed()->get();
+
+- Já para buscarmos apenas os excluidos utilizamos esse;
+
+Fornecedor::onlyTrashed()->get();
+
+- Para restaurar utilizamos esse;
+
+$fornecedores [0]->restore();
+_________________________________________________________________
+Seeders parte 1
+
+- Basicamente o seeder é um script que vc cria para ajudar a 
+semear seu banco de dados para fim de teste;
+- Para criar um seeder esse é o comando;
+
+php artisan make:seeder FornecedorSeeder
+
+- dentro do seeder importamos a model fornecedor e criamos um 
+obejto;
+
+use Illuminate\Database\Seeder;
+use \App\Models\Fornecedor;
+
+class FornecedorSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     */
+    public function run(): void
+    {
+        $fornecedor = new Fornecedor();
+        $fornecedor-> nome = 'Forncedor 100';
+        $fornecedor-> site = 'forncedor100.com.br';
+        $fornecedor-> uf = 'CE';
+        $fornecedor-> email = 'contato@forncedor100.com.br';
+        $fornecedor-> save();
+    }
+}
+
+- Podemos utilizar outros dois metodo para criar a mesmo coisa;
+
+ //metodo create(atenção para atributo fillable da classe)
+        Fornecedor::create([
+            'nome' => 'Fornecedor 200',
+            'site' => 'fornecedor200.com.br',
+            'uf' => 'RS',
+            'email' => 'contato@fornecedor200.com.br',
+        ]);
+
+        //insert
+        DB::table('fornecedores')->insert([
+            'nome' => 'Fornecedor 300',
+            'site' => 'fornecedor300.com.br',
+            'uf' => 'SP',
+            'email' => 'contato@fornecedor300.com.br',
+        ]);
+
+-  php artisan db:seed esse é o comando para criarmos esses 
+registros com seeders;
+- Caso não conseiga visualizar nada no banco de dado é 
+necessario configurar DatabaseSeeder.php;
+
+
+public function run(): void
+    {
+        $this->call(FornecedorSeeder::class);
+    }
+}
+
+- Adicione esse trecho de código;
+_________________________________________________________________
+ Seeders parte 2
+
+- Criamos uma nova seeder para SiteContato e instaciamos o 
+objeto;
+- Em databaseSeeder adicionamos $this->call(SiteContatoSeeder
+::class);
+- E enviamos para banco de dados com;
+
+php artisan db:seed --class=SiteContatoSeeder
+
+- Esse parametro a mais utilizado serve para encaminhar uma 
+classe especifica não todas;
+_________________________________________________________________
