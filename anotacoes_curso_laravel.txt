@@ -1560,3 +1560,28 @@ $contato -> create($request->all());
 
 - Porém desse modo também temos que ter o fillable criado na 
 model;
+_________________________________________________________________
+Validação de campos obrigatórios (required)
+
+- Realizamos uma nova troca no metodo post do contatocontroller,
+adicionamos o salvar quando for chamado o metodo post e tambem
+no controller criamos um novo metodo;
+
+public function salvar(Request $request){
+        //realizar a validação dos dado no formulario recebidos pelo request
+    $request->validate(['nome'=>'required', 'telefone' =>'required', 'email'=>'required', 'motivo_contato'=>'required', 'mensagem'=>'required']);
+        //SiteContato::create($request->all());
+    }
+
+- Com essa validação criada agora todos os campos são requeridos
+ou seja todo são obrigatorios;
+_________________________________________________________________
+ Validação de quantidades mínimas e máximas de caracteres 
+(min e max)
+
+- ['nome'=>'required|min:3|max:40'
+
+- DEvemos prestar muito atenção quando for necessario passar esse
+tipo de parametro de min e max pois ele são passados com 2 pontos
+e com barra em pé não deitada;
+_________________________________________________________________

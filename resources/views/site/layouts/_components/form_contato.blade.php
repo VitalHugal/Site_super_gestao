@@ -7,7 +7,7 @@
     <br>
     <input name="telefone" type="text" placeholder="Telefone" class="{{$classe}}">
     <br>
-    <input name="email" type="text" placeholder="E-mail" class="{{$classe}}">
+    <input name="email" type="text" placeholder="E-mail" class="{{$classe}}" >
     <br>
     <select name="motivo_contato" class="{{$classe}}">
         <option value="1">Qual o motivo do contato?</option>
@@ -20,3 +20,9 @@
     <br>
     <button type="submit" class="{{$classe}}">ENVIAR</button>
 </form>
+<br>
+<div style="position:absolute; top:0px; left:0px; width:100%; background:red"></div>
+    <pre>
+    {{print_r($errors)}}
+    </pre>
+</div>
