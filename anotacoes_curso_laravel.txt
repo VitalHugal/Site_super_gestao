@@ -1633,3 +1633,16 @@ Ajustando o formulário de contato na rota principal
 
   @endcomponent
 _________________________________________________________________
+Refactoring do projeto Super Gestão parte 1
+
+- Criamos uma nova model para trabalhar com motivo_contato
+
+php artisan make:model MotivoContato -m
+
+- Criamos tambem um seeder para povoar o bando de dados;
+
+php artisan make:seeder MotivoContatoSeeder
+_________________________________________________________________
+Refactoring do projeto Super Gestão parte 2
+
+- 
