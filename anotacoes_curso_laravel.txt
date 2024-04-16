@@ -1645,4 +1645,19 @@ php artisan make:seeder MotivoContatoSeeder
 _________________________________________________________________
 Refactoring do projeto Super Gestão parte 2
 
-- 
+- php artisan make:migration alter_table_site_contatos_add_fk_
+motivo_contatos;
+_________________________________________________________________
+Validação de campos e-mail
+
+- No contatoController trocar a validação de required para email
+pois para esse cenário é a melhor validação que podemos ter onde
+já é entendido todas as validações possíveis;
+_________________________________________________________________
+Persistindo dados e redirecionando a rota
+
+- Foi realizado a troca dos dados de motivo_contato para motivo_
+contatos_id no form, SiteContato, e contatocontroller;
+- Em seguida realizamos a implementação de um registro no banco 
+de dados;
+_________________________________________________________________
