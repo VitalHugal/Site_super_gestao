@@ -8,6 +8,7 @@ use App\Http\Controllers\PrincipalController;
 use App\Http\Controllers\ProdutosController;
 use App\Http\Controllers\SobreNosController;
 use App\Http\Controllers\TesteController;
+use App\Http\Middleware\LogAcessoMiddleware;
 use Illuminate\Support\Facades\Route;
 
 //site
@@ -15,17 +16,31 @@ Route::get('/', [PrincipalController::class, 'principal'])->name('site.index');
 Route::get('/contato', [ContatoController::class, 'contato'])->name('site.contato');
 Route::post('/contato', [ContatoController::class, 'salvar'])->name('site.contato');
 Route::get('/sobre-nos', [SobreNosController::class, 'sobreNos'])->name('site.sobrenos');
-Route::get('/login', [LoginController::class, 'login'])->name('site.login');
+Route::get('/login', function(){ return 'login';})->name('site.login');
 
 
+//apelidando o middleware
+Route::aliasMiddleware('log.acesso', \App\Http\Middleware\LogAcessoMiddleware::class);
+
+
+//agrupando rotas com o middleware pelo apelido
+// Route::middleware('log.acesso')->group(function () {
+// Route::get('/contato', [ContatoController::class, 'contato']);
+// Route::get('/sobre-nos', [SobreNosController::class, 'sobreNos']);
+// Route::get('/', [PrincipalController::class, 'principal']);
+// Route::get('/login', function(){ return 'login';})->name('site.login');
+// Route::get('/clientes', function(){ return 'clientes';})->name('app.clientes');
+// Route::get('/fornecedores', [FornecedoresController::class, 'index'])->name('app.fornecedores');
+// Route::get('/produtos', function(){ return 'produtos';})->name('app.produtos');
+// });
 
 
 
 //app
 Route::prefix('/app')->group(function () {
-    Route::get('/clientes', [ClientesController::class, 'clientes'])->name('app.clientes');
+    Route::get('/clientes', function(){ return 'clientes';})->name('app.clientes');
     Route::get('/fornecedores', [FornecedoresController::class, 'index'])->name('app.fornecedores');
-    Route::get('/produtos', [ProdutosController::class, 'produtos'])->name('app.produtos');
+    Route::get('/produtos', function(){ return 'produtos';})->name('app.produtos');
 });
 
 

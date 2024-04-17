@@ -1723,3 +1723,89 @@ public function salvar(Request $request){
 mesagens pré-definidas para erros em campo que estão com algum 
 tipo de validação;
 _________________________________________________________________
+Introdução aos Middlewares
+
+- Middlewares são como um intermediador de comunicação de entrada
+ e saida;
+- Os Middlewares trabalham com a request do browser e na 
+manipulação do response;
+- Com os Middlewares podemos realizar diversos tipos de serviços
+como verificar se é um usuario autenticado, verificar o ip, 
+atraves do login podemos verificar qual tipo de usuario ele é 
+e onde ele pode mexer;
+- CORS - Cross-Origin Resource Sharing; 
+_________________________________________________________________
+Criando meu primeiro middleware
+
+- php artisan make:middleware LogAcessoMiddleware
+- Para importarmos ela em uma rota precisamos ir até o o web.php
+e adicionar na rota principal 
+
+->middleware(LogAcessoMiddleware::class);
+
+- Lembre-se de verificar se foi importado a classe junto com as
+'bibliotecas' que vc tem;
+- na class criada de middleware colocamos um pequeno trecho de 
+resposta apenas para fins de teste;
+
+return Response('Chegamos no middleware e finalizmaos no proprio
+ middleware');
+_________________________________________________________________
+Criando o model LogAcesso e sua migration
+
+- Crairemos uma model para fins de teste uma vez que vamos 
+colocar isso no bando de dados para testar como se fosse um tipo
+de validação;
+
+php artisan make:model LogAcesso -m   
+
+- Iremos buscar o ip para verificar quem tentou acessar e a qual
+rota ele esta tentando acessar;
+- Dentro do LogAcessoMiddleware;
+
+ //return $next($request);
+        dd($request);
+
+        $ip = $request->server->get('REMOTE_ADDR');
+
+        //Nesse trecho pegamos o requestUri no dd e colocamos ele nessa formatação pois é necessario;
+        $rota = $request->getRequestUri();
+        LogAcesso::create(['log' => "IP '$ip' requisitou a rota '$rota'"]);
+        return Response('Chegamos no middleware e finalizmaos no proprio middleware');
+
+- No Log Acesso;
+
+ protected $fillable =['log'];
+
+- na migrations log_acessos
+
+ Schema::create('log_acessos', function (Blueprint $table) {
+            $table->id();
+            $table->string('log', 200);
+            $table->timestamps();
+        });
+_________________________________________________________________
+Implementando middlewares no método construtor dos controllers
+
+- Crairemos dentro do sobrenoscontroller um metodo construtor 
+para o middleware;
+_________________________________________________________________
+Implementando um middleware para todas as rotas
+
+- No laravel 11 para grupos;
+
+//agrupando rotas com o middleware
+Route::middleware('App\Http\Middleware\LogAcessoMiddleware')->group(function () {
+Route::get('/contato', [ContatoController::class, 'contato']);
+Route::get('/sobre-nos', [SobreNosController::class, 'sobreNos']);
+Route::get('/', [PrincipalController::class, 'principal']);
+});
+
+- Lembre-se de adicionar todas as rotas dessa forma;
+_________________________________________________________________
+Apelidando middlewares
+
+Route::aliasMiddleware('log.acesso', \App\Http\Middleware\LogAcessoMiddleware::class);
+
+- Assim que aplidamos no laravel 11;
+_________________________________________________________________
