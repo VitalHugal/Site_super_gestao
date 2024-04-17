@@ -1858,3 +1858,31 @@ Route::get('/fornecedores', [FornecedoresController::class, 'index'])->name('app
 Route::get('/produtos', function () {return 'produtos';})->name('app.produtos');
 });
 _________________________________________________________________
+Passando parâmetros para o middleware
+
+- Route::middleware('autenticacao:padrao,visitante')
+
+- Para adicionar um parametro o primeiro para diferenciar com o 
+metdodo autenticação é dois pontos e dois virgulas;
+
+
+- Alguns parametros parssado na autenticacao;
+
+public function handle(Request $request, Closure $next, $metodo_autenticação, $perfil)
+    {
+        echo $metodo_autenticação.'-'.$perfil.'<br>';
+        if ($metodo_autenticação == 'padrao') {
+            echo 'Verficar o usuário e senha no banco de dados'.$perfil.'<br>';
+        }
+        if ($metodo_autenticação == 'ldap') {
+            echo 'Verficar o usuário e senha no AD'.$perfil.'<br>';
+        }
+        if ($perfil == 'visitante') {
+            echo'Exibir apenas alguns reursos';
+        }else{
+            echo'CArregar o perfil do banco de dados';
+        }
+_________________________________________________________________
+ Implementando o formulário de Login
+
+- 

@@ -14,9 +14,25 @@ class AutenticacaoMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next)
+    public function handle(Request $request, Closure $next, $metodo_autenticação, $perfil)
     {
+        echo $metodo_autenticação.'-'.$perfil.'<br>';
+        if ($metodo_autenticação == 'padrao') {
+            echo 'Verficar o usuário e senha no banco de dados'.$perfil.'<br>';
+        }
+        if ($metodo_autenticação == 'ldap') {
+            echo 'Verficar o usuário e senha no AD'.$perfil.'<br>';
+        }
+        if ($perfil == 'visitante') {
+            echo'Exibir apenas alguns reursos';
+        }else{
+            echo'CArregar o perfil do banco de dados';
+        }
 
-        return Response('Acesso negado! Rota exige autenticação!');
+        if(false){
+
+        }else{
+            return Response('Acesso negado! Rota exige autenticação!');
+        }
     }
 }

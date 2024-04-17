@@ -12,41 +12,36 @@ use App\Http\Middleware\LogAcessoMiddleware;
 use App\Http\Middleware\AutenticacaoMiddleware;
 use Illuminate\Support\Facades\Route;
 
-//site
-Route::get('/', [PrincipalController::class, 'principal'])->name('site.index');
-Route::get('/contato', [ContatoController::class, 'contato'])->name('site.contato');
-Route::post('/contato', [ContatoController::class, 'salvar'])->name('site.contato');
-Route::get('/sobre-nos', [SobreNosController::class, 'sobreNos'])->name('site.sobrenos');
-Route::get('/login', function(){ return 'login';})->name('site.login');
+// //site
+// Route::get('/', [PrincipalController::class, 'principal'])->name('site.index');
+// Route::get('/contato', [ContatoController::class, 'contato'])->name('site.contato');
+// Route::post('/contato', [ContatoController::class, 'salvar'])->name('site.contato');
+// Route::get('/sobre-nos', [SobreNosController::class, 'sobreNos'])->name('site.sobrenos');
+// Route::get('/login', function(){ return 'login';})->name('site.login');
 
 
-// //apelidando o middleware
-// Route::aliasMiddleware('log.acesso', \App\Http\Middleware\LogAcessoMiddleware::class);
+//apelidando o middleware
+Route::aliasMiddleware('log.acesso', \App\Http\Middleware\LogAcessoMiddleware::class);
  //apelidando o middleware
 Route::aliasMiddleware('autenticacao', \App\Http\Middleware\AutenticacaoMiddleware::class);
 
 
 
 // //agrupando rotas com o middleware pelo apelido
-// //Route::middleware('log.acesso')->group(function () {
-// Route::get('/contato', [ContatoController::class, 'contato']);
-// Route::get('/sobre-nos', [SobreNosController::class, 'sobreNos']);
-// //Route::get('/', [PrincipalController::class, 'principal']);
+Route::middleware(['log.acesso'])->group(function () {
+    Route::get('/contato', [ContatoController::class, 'contato'])->name('site.contato');
+    Route::get('/sobre-nos', [SobreNosController::class, 'sobreNos'])->name('site.sobrenos');
+    Route::get('/', [PrincipalController::class, 'principal'])->name('site.index');
 
-
-// Route::get('/login', function(){ return 'login';})->name('site.login');
-// Route::get('/clientes', function(){ return 'clientes';})->name('app.clientes');
-// Route::get('/fornecedores', [FornecedoresController::class, 'index'])->name('app.fornecedores');
-// Route::get('/produtos', function(){ return 'produtos';})->name('app.produtos');
-//  //});
+});
 
 
 //app
-
-Route::middleware('autenticacao')->prefix('/app')->group(function () {
+Route::middleware('autenticacao:padrao,visitante')->prefix('/app')->group(function () {
 Route::get('/clientes', function () {return 'clientes';})->name('app.clientes');
 Route::get('/fornecedores', [FornecedoresController::class, 'index'])->name('app.fornecedores');
 Route::get('/produtos', function () {return 'produtos';})->name('app.produtos');
+Route::get('/login', function(){ return 'login';})->name('site.login');
 });
 
 
