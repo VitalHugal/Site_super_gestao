@@ -14,7 +14,7 @@ class LogAcessoMiddleware
      *
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
         //return $next($request);
 
@@ -23,6 +23,7 @@ class LogAcessoMiddleware
         //Nesse trecho pegamos o requestUri no dd e colocamos ele nessa formatação pois é necessario;
         $rota = $request->getRequestUri();
         LogAcesso::create(['log' => "IP '$ip' requisitou a rota '$rota'"]);
+        //return $next($request);
         return Response('Chegamos no middleware e finalizmaos no proprio middleware');
     }
 }

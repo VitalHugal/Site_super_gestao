@@ -7,7 +7,7 @@ use App\Http\Middleware\LogAcessoMiddleware;
 
 class SobreNosController extends Controller
 {
-   
+
 
     public function sobreNos()
     {

@@ -1807,5 +1807,54 @@ Apelidando middlewares
 
 Route::aliasMiddleware('log.acesso', \App\Http\Middleware\LogAcessoMiddleware::class);
 
-- Assim que aplidamos no laravel 11;
+- Assim que apelidamos no laravel 11;
+_________________________________________________________________
+Encadeamento de middlewares (criando um middleware de 
+autenticação)
+
+- Criação de um novo middleware;
+
+php artisan make:middleware AutenticacaoMiddleware
+
+return Response('Acesso negado! Rota exige autenticação!');
+
+- Em seguida no web.php foi dado um apelido para essa middleware
+de autenticação e colocada em clientes;
+
+Route::aliasMiddleware('autenticacao', \App\Http\Middleware\AutenticacaoMiddleware::class);
+
+//app
+Route::prefix('/app')->group(function () {
+Route::middleware('autenticacao')->get('/clientes', function()
+{ return 'clientes';})->name('app.clientes');
+
+- Em seguida encadeia os apelido;
+
+Route::middleware('log.acesso','autenticacao')->group(function (){
+Route::prefix('/app')->group(function () {
+Route::get('/clientes', function () {return 'clientes';})->name('app.clientes');
+Route::get('/fornecedores', [FornecedoresController::class, 'index'])->name('app.fornecedores');
+Route::get('/produtos', function () {return 'produtos';})->name('app.produtos');
+});
+});
+
+- no LogAcessoMiddleware colocamos essa linha de comando logo 
+após falarmos do create;
+
+return $next($request);
+
+- Onde essa linha encaminha vc para a proxima etapa que pelo 
+encadeiamento dos middleware é o autenticacao que quando chegar 
+lá vai também encaminhar para next request pois dentro da 
+auteticação colocamos que o usuario era "true" vai para o ultimo
+next que no caso é mostar clientes pois assim que deixar-mos na
+route na funcção callback;
+_________________________________________________________________
+ Adicionando middlewares a um grupo de rotas
+
+- Route::middleware('autenticacao')->prefix('/app')->group(function () {
+Route::get('/clientes', function () {return 'clientes';})->name('app.clientes');
+Route::get('/fornecedores', [FornecedoresController::class, 'index'])->name('app.fornecedores');
+Route::get('/produtos', function () {return 'produtos';})->name('app.produtos');
+});
 _________________________________________________________________
