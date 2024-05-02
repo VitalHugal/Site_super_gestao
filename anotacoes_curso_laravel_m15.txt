@@ -1,7 +1,0 @@
-Oque é uma API?
-
-- Intreface de programação de aplicações;
-- Conjunto de rotinas e padrões estabelcido por um sottware para
-a untilização das suas funcionalidades por aplicativos que não 
-pretendem envolver-se em detalhes da implementação do software,
-mas apenas usar seus serviços.
