@@ -41,9 +41,10 @@ Route::middleware('autenticacao:padrao,visitante')->prefix('/app')->group(functi
 Route::get('/clientes', function () {return 'clientes';})->name('app.clientes');
 Route::get('/fornecedores', [FornecedoresController::class, 'index'])->name('app.fornecedores');
 Route::get('/produtos', function () {return 'produtos';})->name('app.produtos');
-Route::get('/login', function(){ return 'login';})->name('site.login');
-});
 
+});
+Route::get('/login/{erro?}', [LoginController::class, 'index'])->name('site.login');
+Route::post('/login', [LoginController::class, 'autenticar'])->name('site.login');
 
 
 //rota de teste
