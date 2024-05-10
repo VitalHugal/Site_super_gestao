@@ -152,8 +152,9 @@ button:hover {
     margin-bottom: 100px;
 }
 
-.titulo-pagina {
-    padding: 100px 0px 60px 0px;
+.titulo-pagina-2 {
+    padding: 70px 0px 10px 0px;
+    margin-bottom: 10px;
     background-color: #2a9ee2;
     text-align: center;
 }
