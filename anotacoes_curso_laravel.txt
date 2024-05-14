@@ -1883,3 +1883,6 @@ public function handle(Request $request, Closure $next, $metodo_autenticação, 
             echo'CArregar o perfil do banco de dados';
         }
 _________________________________________________________________
+Implementando cadastro de fornecedores 
+
+- 
