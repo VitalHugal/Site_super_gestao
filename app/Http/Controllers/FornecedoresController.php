@@ -26,7 +26,7 @@ class FornecedoresController extends Controller
 
             $feedback =[
                 'required'=>'Esse campo é obrigatório',
-                'email'=>'Esse e-mail é inválido.',
+                'email.email'=>'Esse e-mail é inválido.',
                 'nome.min'=>'Esse campo tem que ter no mínimo 3 caracteres',
                 'nome.max'=>'Esse campo tem que ter no máximo 40 caracteres',
                 'uf.min'=>'Esse campo tem que ter no mínimo 2 caracteres',
