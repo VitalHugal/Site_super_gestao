@@ -1883,6 +1883,52 @@ public function handle(Request $request, Closure $next, $metodo_autenticação, 
             echo'CArregar o perfil do banco de dados';
         }
 _________________________________________________________________
-Implementando cadastro de fornecedores 
+Paginação de registros - Métodos count(), total(), firstItem() e lastItem()
 
-- 
+ <br>
+ {{ $fornecedores->count()}} - Total de registros por pagina
+ <br>
+ {{ $fornecedores->total()}} - Total de registros da consulta
+ <br>
+ {{ $fornecedores->firstItem()}} - Número do primeiro registro da página
+ <br>
+ {{ $fornecedores->lastItem()}} - Número do ultimo registro da página
+
+___________________________________________________________________
+Implementando o cadastro de fornecedores parte 5 (remoção de registros)
+
+- foi criado um metodo de remoção excluir que quando exclui o id escolhido
+redireciona para a rora index.
+
+___________________________________________________________________
+Controladores com resources
+
+- basicamente é o crud padrão da framework laravel;
+
+___________________________________________________________________
+Implementando o cadastro de produtos parte 1 (index)
+
+- criamos a view index de produtos o metodo index também;
+
+___________________________________________________________________
+Implementando o cadastro de produtos parte 2 (create)
+
+- foi craido a view eo metodo de 'create' 
+
+___________________________________________________________________
+Implementando o cadastro de produtos parte 3 (store)
+
+- passmos como parametro a rota produto.store para view create e 
+criamos o metodo store
+
+___________________________________________________________________
+Implementando o cadastro de produtos parte 4 (validando dados)
+
+- aqui foi criado a validação de inserção de dados no metodo store
+do controller e passado os parametros de forma dinamica para a view
+
+___________________________________________________________________
+Implementando o cadastro de produtos parte 5 (show)
+
+- nessa etapa foi construida uma nova view para renderizar o um registro especifico
+alem disso também foi instan

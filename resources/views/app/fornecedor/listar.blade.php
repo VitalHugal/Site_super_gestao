@@ -20,7 +20,7 @@
                 <table border="1" width="100%">
                     <thead>
                         <tr>
-                           
+
                             <th>Nome</th>
                             <th>Site</th>
                             <th>UF</th>
@@ -31,18 +31,22 @@
                     </thead>
                     <tbody>
                         @foreach ($fornecedores as $fornecedor)
-                        <tr>
-                            <td>{{$fornecedor->nome}}</td>
-                            <td>{{$fornecedor->site}}</td>
-                            <td>{{$fornecedor->uf}}</td>
-                            <td>{{$fornecedor->email}}</td>
-                            <td>Excluir</td>
-                            <td>Editar</td>
-                        </tr>
+                            <tr>
+                                <td>{{ $fornecedor->nome }}</td>
+                                <td>{{ $fornecedor->site }}</td>
+                                <td>{{ $fornecedor->uf }}</td>
+                                <td>{{ $fornecedor->email }}</td>
+                                <td> <a href="{{ route('app.fornecedor.excluir', $fornecedor->id) }}">Excluir</a></td>
+                                <td> <a href="{{ route('app.fornecedor.editar', $fornecedor->id) }}">Editar</a></td>
+                            </tr>
                         @endforeach
                     </tbody>
                 </table>
 
+                {{ $fornecedores->appends($request)->links('pagination::default') }}
+
+                Exibindo {{ $fornecedores->count() }} fornecedores de {{ $fornecedores->total() }} (de
+                {{ $fornecedores->firstItem() }} a {{ $fornecedores->lastItem() }})
             </div>
         </div>
     </div>

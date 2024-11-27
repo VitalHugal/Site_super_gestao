@@ -188,3 +188,39 @@ button:hover {
 .redes-sociais img {
     margin: 0px 15px 0px 15px;
 }
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    list-style-type: none;
+    padding: 0;
+}
+
+.pagination li {
+    margin: 0 5px;
+}
+
+.pagination li a, .pagination li span {
+    padding: 8px 12px;
+    text-decoration: none;
+    color: #2a9ee2;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+.pagination li a:hover {
+    background-color: #2a9ee2;
+    color: #fff;
+}
+
+.pagination li.active span {
+    background-color: #2a9ee2;
+    color: #fff;
+    border-color: #2a9ee2;
+}
+
+.pagination li.disabled span {
+    color: #aaa;
+    border-color: #ddd;
+    cursor: not-allowed;
+}

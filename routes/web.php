@@ -41,14 +41,15 @@ Route::middleware('autenticacao:padrao,visitante')->prefix('/app')->group(functi
     Route::get('/sair',  [LoginController::class,'sair'])->name('app.sair');
     Route::get('/cliente',[ClienteController::class, 'index'])->name('app.cliente');
 
-    Route::get('/fornecedore', [FornecedoresController::class, 'index'])->name('app.fornecedor');
-    Route::post('/fornecedore/listar', [FornecedoresController::class, 'listar'])->name('app.fornecedor.listar');
-    Route::get('/fornecedore/adicionar', [FornecedoresController::class, 'adicionar'])->name('app.fornecedor.adicionar');
-    Route::post('/fornecedore/adicionar', [FornecedoresController::class, 'adicionar'])->name('app.fornecedor.adicionar');
+    Route::get('/fornecedor', [FornecedoresController::class, 'index'])->name('app.fornecedor');
+    Route::post('/fornecedor/listar', [FornecedoresController::class, 'listar'])->name('app.fornecedor.listar');
+    Route::get('/fornecedor/listar', [FornecedoresController::class, 'listar'])->name('app.fornecedor.listar');
+    Route::get('/fornecedor/adicionar', [FornecedoresController::class, 'adicionar'])->name('app.fornecedor.adicionar');
+    Route::post('/fornecedor/adicionar', [FornecedoresController::class, 'adicionar'])->name('app.fornecedor.adicionar');
+    Route::get('/fornecedor/editar/{id}/{msg?}', [FornecedoresController::class, 'editar'])->name('app.fornecedor.editar');
+    Route::get('/fornecedor/excluir/{id}/{msgR?}', [FornecedoresController::class, 'excluir'])->name('app.fornecedor.excluir');
 
-
-
-    Route::get('/produto', [ProdutoController::class, 'index'])->name('app.produto');
+    Route::resource('produto', ProdutoController::class);
 
 });
 
