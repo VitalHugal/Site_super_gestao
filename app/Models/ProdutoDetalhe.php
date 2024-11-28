@@ -8,8 +8,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProdutoDetalhe extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     protected $fillable = ['produto_id', 'comprimento', 'largura', 'altura', 'unidade_id'];
     protected $table = 'produto_detalhes';
+
+
+    public function produto()
+    {
+        return $this->belongsTo('App\Models\Produto');
+    }
 }

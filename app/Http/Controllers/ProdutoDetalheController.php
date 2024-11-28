@@ -49,15 +49,17 @@ class ProdutoDetalheController extends Controller
      */
     public function edit(ProdutoDetalhe $produtoDetalhe)
     {
-        dd($produtoDetalhe);
+        $unidades = Unidades::all();
+        return view('app.produto_detalhe.edit', ['produto_detalhe' => $produtoDetalhe, 'unidades' => $unidades]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, ProdutoDetalhe $produtoDetalhe)
     {
-        //
+        $produtoDetalhe->update($request->all());
+        echo "Atualização realizada com sucesso.";
     }
 
     /**
