@@ -1931,4 +1931,18 @@ ___________________________________________________________________
 Implementando o cadastro de produtos parte 5 (show)
 
 - nessa etapa foi construida uma nova view para renderizar o um registro especifico
-alem disso também foi instan
+alem disso também foi instanciado o metodo show do controlador enviado um objeto onde 
+é necessário para a recuperação do produto especifico desejado.
+
+(novo metodo)
+
+___________________________________________________________________
+Implementando o cadastro de produtos parte 6 (edit)
+
+- aqui craimos uma nova view sendo ela a view edit e também atribuimos
+ um novo metodo onde foi passado como parametro produto e unidades 
+
+___________________________________________________________________
+Implementando o cadastro de produtos parte 7 (update)
+
+- 

@@ -10,7 +10,7 @@
 
         <div class="menu">
             <ul>
-                <li><a href="{{ route('produto.create')}}">Novo</a></li>
+                <li><a href="{{ route('produto.create') }}">Novo</a></li>
                 <li><a href="">Consulta</a></li>
             </ul>
         </div>
@@ -36,9 +36,17 @@
                                 <td>{{ $produto->descricao }}</td>
                                 <td>{{ $produto->peso }}</td>
                                 <td>{{ $produto->unidade_id }}</td>
-                                <td> <a href="{{route('produto.show', ["produto" => $produto->id])}}">Visualizar</a></td>
-                                <td> <a href="">Excluir</a></td>
-                                <td> <a href="{{route('produto.edit', ["produto" => $produto->id])}}">Editar</a></td>
+                                <td> <a href="{{ route('produto.show', ['produto' => $produto->id]) }}">Visualizar</a></td>
+                                <td>
+                                    <form id="form_{{$produto->id}}" method="post"
+                                        action="{{ route('produto.destroy', ['produto' => $produto->id]) }}">
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <a href="#" onclick="document.getElementById('form_{{$produto->id}}').submit()">Excluir</a>
+                                    </form>
+                                </td>
+                                <td> <a href="{{ route('produto.edit', ['produto' => $produto->id]) }}">Editar</a></td>
 
                             </tr>
                         @endforeach
@@ -46,7 +54,7 @@
                 </table>
 
                 {{ $produtos->appends($request)->links('pagination::default') }}
-
+                <br>
                 Exibindo {{ $produtos->count() }} produtos de {{ $produtos->total() }} (de
                 {{ $produtos->firstItem() }} a {{ $produtos->lastItem() }})
             </div>
