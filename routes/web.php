@@ -12,6 +12,7 @@ use App\Http\Middleware\LogAcessoMiddleware;
 use App\Http\Middleware\AutenticacaoMiddleware;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProdutoDetalheController;
 
 // //site
 // Route::get('/', [PrincipalController::class, 'principal'])->name('site.index');
@@ -50,6 +51,7 @@ Route::middleware('autenticacao:padrao,visitante')->prefix('/app')->group(functi
     Route::get('/fornecedor/excluir/{id}/{msgR?}', [FornecedoresController::class, 'excluir'])->name('app.fornecedor.excluir');
 
     Route::resource('produto', ProdutoController::class);
+    Route::resource('produto-detalhe', ProdutoDetalheController::class);
 
 });
 
