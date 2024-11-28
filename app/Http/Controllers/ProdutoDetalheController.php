@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\ProdutoDetalhe;
+use App\Models\Unidades;
 
 class ProdutoDetalheController extends Controller
 {
@@ -21,7 +22,8 @@ class ProdutoDetalheController extends Controller
      */
     public function create()
     {
-        //
+        $unidades = Unidades::all();
+        return view('app.produto_detalhe.create', ['unidades' => $unidades]);
     }
 
     /**
@@ -29,7 +31,9 @@ class ProdutoDetalheController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // dd($request->all());
+        ProdutoDetalhe::create($request->all());
+        echo "Cadastro realizado com sucesso.";
     }
 
     /**
@@ -43,9 +47,9 @@ class ProdutoDetalheController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(ProdutoDetalhe $produtoDetalhe)
     {
-        //
+        dd($produtoDetalhe);
     }
 
     /**
