@@ -1948,3 +1948,8 @@ Relacionamentos 1x1, 1xN e NxN com Eloquent ORM
 - exite tres tipos de relacionamento sendo 1x1, 1xn e nxn em banco de dados
 relacionais;
 ___________________________________________________________________
+Extra - Lazy Loading vs Eager Loading parte 1
+
+- quando utilizamos a consulta com metodo with('$exemplo') temos uma 
+nomenclatura chamada eager loading onde ela já realiza o relacionamento entre
+duas tabela já te entrega isso.
