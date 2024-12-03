@@ -1947,9 +1947,57 @@ Relacionamentos 1x1, 1xN e NxN com Eloquent ORM
 
 - exite tres tipos de relacionamento sendo 1x1, 1xn e nxn em banco de dados
 relacionais;
+
 ___________________________________________________________________
 Extra - Lazy Loading vs Eager Loading parte 1
 
 - quando utilizamos a consulta com metodo with('$exemplo') temos uma 
 nomenclatura chamada eager loading onde ela já realiza o relacionamento entre
 duas tabela já te entrega isso.
+
+___________________________________________________________________
+Extra - Lazy Loading vs Eager Loading parte 2
+
+- nessta etapa acresentamos o metodo with no controller de produto detalhe;
+
+___________________________________________________________________
+Eloquent ORM 1 para N - Criando o relacionamento entre Fornecedor e Produto
+
+ - aqui falamos sobre o relacionamento de produtos com o fornecedor nesse 
+ primeiro momento criaremos a migrations responsavel por essa comunicação entre as
+ duas tabelas
+
+___________________________________________________________________
+Eloquent ORM 1 para N - Exibindo informações do fornecedor (belongsTo)
+
+- nessa etapa iremos implementar a parte de fornecedores na listagem de produtos
+
+___________________________________________________________________
+Extra - Exibindo mais informações do fornecedor
+
+- colocamos o controller na pesquisa com with o metodo forncedor para uma
+consulta mais rapida
+
+___________________________________________________________________
+Eloquent ORM 1 para N - Estabelecendo relacionamento 1xN (hasMany)
+
+- nessa etapa trabalhamos com o metodo hasMany no caso tem muito, onde
+atribuimos isso ao fornecedor uma vez que um fornecedore tem muitos produtos;
+
+___________________________________________________________________
+Eloquent ORM 1 para N - Associando fornecedores a produtos (Store e Update)
+
+- aqui nessa etapa associamos os fornecedores aos produtos quando criamos ou atualizamos
+dessa forma temos uma riqueza de detalhes maior para o relacionamento das tabelas
+
+___________________________________________________________________
+Eloquent N para N - Implementando os requisitos para o relacionamento
+
+- criamos os modelos e também as migrations para clientes, pedidos e pedidoProduto
+para assim ser possivel darmos continuidade no processo de implementação dos requisitos
+basicos;
+
+___________________________________________________________________
+Criando os controladores e rotas para clientes, pedidos e pedidos produtos
+
+- 

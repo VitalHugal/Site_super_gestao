@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Produto;
 use App\Models\Item;
 use App\Http\Controllers\Controller;
+use App\Models\Fornecedor;
 use App\Models\ProdutoDetalhe;
 use App\Models\Unidades;
 use Illuminate\Http\Request;
@@ -16,23 +17,7 @@ class ProdutoController extends Controller
      */
     public function index(Request $request)
     {
-        $produtos = Item::with('itemDetalhe')->paginate(10);
-
-        // foreach ($produtos as $key => $produto) {
-        //     // print_r($produto->getAttributes());
-        //     // echo "<br><br>";
-
-        //     $produtoDetalhe = ProdutoDetalhe::where('produto_id', $produto->id)->first();
-
-        //     if (isset($produtoDetalhe)) {
-        //         // print_r($produtoDetalhe->getAttributes());
-
-        //         $produtos[$key]['comprimento'] = $produtoDetalhe->comprimento;
-        //         $produtos[$key]['largura'] = $produtoDetalhe->largura;
-        //         $produtos[$key]['altura'] = $produtoDetalhe->altura;
-        //     }
-        //     // echo "<hr>";
-        // }
+        $produtos = Item::with(['itemDetalhe', 'fornecedor'])->paginate(10);
 
         return view('app.produto.index', ['produtos' => $produtos, 'request' => $request->all()]);
     }
@@ -43,7 +28,8 @@ class ProdutoController extends Controller
     public function create()
     {
         $unidades = Unidades::all();
-        return view('app.produto.create', ['unidades' => $unidades]);
+        $fornecedores = Fornecedor::all();
+        return view('app.produto.create', ['unidades' => $unidades, 'fornecedores' => $fornecedores]);
     }
 
     /**
@@ -56,6 +42,7 @@ class ProdutoController extends Controller
             'descricao' => 'required|max:2000|min:3',
             'peso' => 'required|integer',
             'unidade_id' => 'exists:unidades,id',
+            'fornecedor_id' => 'exists:fornecedores,id',
         ];
 
         $feedback = [
@@ -66,11 +53,12 @@ class ProdutoController extends Controller
             'descricao.max' => 'O campo descrição deve ter no máximo 2000 caracteres',
             'peso.integer' => 'O campo peso deve ser preenchido com numeros inteiros.',
             'unidade_id.exists' => 'Não foi possível encontrar a unidade informada.',
+            'fornecedor_id.exists' => 'Não foi possível encontrar o fornecedor informado.',
         ];
 
         $request->validate($regras, $feedback);
 
-        Produto::create($request->all());
+        Item::create($request->all());
 
         return redirect()->route('produto.index');
     }
@@ -91,15 +79,36 @@ class ProdutoController extends Controller
     public function edit(Produto $produto)
     {
         $unidade = Unidades::all();
-        return view('app.produto.edit', ['produto' => $produto, 'unidades' => $unidade]);
+        $fornecedores = Fornecedor::all();
+        return view('app.produto.edit', ['produto' => $produto, 'unidades' => $unidade, 'fornecedores' => $fornecedores]);
         // return view('app.produto.create', ['produto' => $produto, 'unidades' => $unidade]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Produto $produto)
+    public function update(Request $request, Item $produto)
     {
+        $regras = [
+            'nome' => 'required|max:40|min:3',
+            'descricao' => 'required|max:2000|min:3',
+            'peso' => 'required|integer',
+            'unidade_id' => 'exists:unidades,id',
+            'fornecedor_id' => 'exists:fornecedores,id',
+        ];
+
+        $feedback = [
+            'required' => 'o campo :attribute deve ser preenchido',
+            'nome.min' => 'O campo nome deve ter no mínimo 3 caracteres',
+            'nome.max' => 'O campo nome deve ter no máximo 40 caracteres',
+            'descricao.min' => 'O campo descrição deve ter no mínimo 3 caracteres',
+            'descricao.max' => 'O campo descrição deve ter no máximo 2000 caracteres',
+            'peso.integer' => 'O campo peso deve ser preenchido com numeros inteiros.',
+            'unidade_id.exists' => 'Não foi possível encontrar a unidade informada.',
+            'fornecedor_id.exists' => 'Não foi possível encontrar o fornecedor informado.',
+        ];
+
+        // dd($request->all());
         $produto->update($request->all());
         return redirect()->route('produto.show', ['produto' => $produto->id]);
     }
