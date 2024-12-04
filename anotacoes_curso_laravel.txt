@@ -2000,4 +2000,33 @@ basicos;
 ___________________________________________________________________
 Criando os controladores e rotas para clientes, pedidos e pedidos produtos
 
+- Criamos od controllers para cliente, pedido e pedidoProduto assim seguimos
+para criação das views;
+
+___________________________________________________________________
+Implementando a tela de listagem de clientes
+
+- nessa etapa criamos a pagina index de visualização de cliente;
+
+___________________________________________________________________
+Implementando a tela de cadastro de clientes
+
+- craimos a tela de cadsatro de cliente e finalizamos até onde conseguimos
+cadastrar um e retornar para index com ele sendo 'printado' lá
+
+___________________________________________________________________
+Implementando a tela de listagem de pedidos
+
+- nessa etapa criamos a no controller o metodo index e também em views criamos
+dentro do diretorio pedido a view de index de pedido;
+
+___________________________________________________________________
+Implementando a tela de cadastro de pedidos
+
+- nessta etapa fizemos a mesma coisa que na seção passada porem com algumas peculidades
+do Modelo em especifico.
+
+___________________________________________________________________
+Implementando a tela de cadastro de produtos para um determinado pedido parte 1
+
 - 
