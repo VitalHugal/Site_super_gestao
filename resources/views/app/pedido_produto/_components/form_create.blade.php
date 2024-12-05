@@ -1,7 +1,7 @@
 <form method="post" action="{{ route('pedido-produto.store', ['pedido' => $pedido]) }}">
     @csrf
 
-    <select name="peoduto_id">
+    <select name="produto_id">
         <option>----Selecione um produto----</option>
         @foreach ($produtos as $produto)
             <option value="{{ $produto->id }}"

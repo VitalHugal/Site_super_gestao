@@ -2034,4 +2034,9 @@ Implementando a tela de cadastro de produtos para um determinado pedido parte 1
 ___________________________________________________________________
 Eloquent ORM N para N - Implementando o relacionamento belongsToMany
 
+- Nessa etapa criamos o relacionamento N para N no caso belongsToMany entre pedido e produto;
+
+___________________________________________________________________
+Eloquent ORM N para N - Praticando um pouco mais o relacionamento belongsToMany
+
 - 

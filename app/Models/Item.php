@@ -21,4 +21,9 @@ class Item extends Model
     {
         return $this->belongsTo('App\Models\Fornecedor');
     }
+    
+    public function pedido()
+    {
+        return $this->belongsTo('App\Models\Fornecedor');
+    }
 }
