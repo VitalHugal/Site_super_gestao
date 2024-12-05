@@ -2032,4 +2032,6 @@ Implementando a tela de cadastro de produtos para um determinado pedido parte 1
 - até aqui realizamos a parte do pedido_produto na parte real de comunicar um produto com um pedido.
 
 ___________________________________________________________________
+Eloquent ORM N para N - Implementando o relacionamento belongsToMany
 
+- 
