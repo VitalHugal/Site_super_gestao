@@ -2039,4 +2039,10 @@ Eloquent ORM N para N - Implementando o relacionamento belongsToMany
 ___________________________________________________________________
 Eloquent ORM N para N - Praticando um pouco mais o relacionamento belongsToMany
 
+- nessa etapa fizemos o caminho inverso da anterior onde realizamos o relacionamento
+ de N para N entre produtos e pedidos
+
+___________________________________________________________________
+Relacionamento N para N - Colunas pivô da tabela de relacionamento (Pivot)
+
 - 
