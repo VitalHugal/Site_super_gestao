@@ -2037,12 +2037,12 @@ Eloquent ORM N para N - Implementando o relacionamento belongsToMany
 - Nessa etapa criamos o relacionamento N para N no caso belongsToMany entre pedido e produto;
 
 ___________________________________________________________________
-Relacionamento N para N - Removendo o relacionamento
+Eloquent ORM N para N - Praticando um pouco mais o relacionamento belongsToMany
 
-- foi ensinado a remoção com o metodo detach que basicamente é o delele
- com o relacionamento.
+- nessa etapa fizemos o caminho inverso da anterior onde realizamos o relacionamento
+ de N para N entre produtos e pedidos
 
- ___________________________________________________________________
-Extra - Removendo o relacionamento pela PK de pedidos_produtos
+___________________________________________________________________
+Relacionamento N para N - Colunas pivô da tabela de relacionamento (Pivot)
 
--
+- 
